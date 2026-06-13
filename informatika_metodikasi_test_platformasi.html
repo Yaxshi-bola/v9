@@ -1,0 +1,2192 @@
+<!DOCTYPE html>
+<html lang="uz" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informatika O'qitish Metodikasi — Interaktiv Test Platformasi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            405: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;950&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%);
+        }
+        .dark body {
+            background: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #030712 100%);
+        }
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.5);
+            border-radius: 20px;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(71, 85, 105, 0.5);
+        }
+        
+        /* Premium Watermark */
+        .watermark-bg {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250' viewBox='0 0 250 250'><text fill='rgba(100, 116, 139, 0.015)' font-size='10' font-family='sans-serif' x='20' y='120' transform='rotate(-30 20 120)'>@yomonboIa | @yovvoyiroq</text></svg>");
+        }
+        .dark .watermark-bg {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250' viewBox='0 0 250 250'><text fill='rgba(255, 255, 255, 0.01)' font-size='10' font-family='sans-serif' x='20' y='120' transform='rotate(-30 20 120)'>@yomonboIa | @yovvoyiroq</text></svg>");
+        }
+
+        /* Glassmorphism Styles (Frosted High-Transparency iOS 26 / HyperOS 3 style) */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.03);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        /* Shining Glass Effect Keyframes */
+        @keyframes sweep {
+            0% { left: -150%; }
+            50% { left: 150%; }
+            100% { left: 150%; }
+        }
+        .shining-glass {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.04);
+        }
+        .dark .shining-glass {
+            background: rgba(15, 23, 42, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.3);
+        }
+        .shining-glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.75) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: skewX(-25deg);
+            animation: sweep 3.5s infinite ease-in-out;
+        }
+
+        /* Keyframe for scale up */
+        @keyframes scaleUp {
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-scale-up {
+            animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+    </style>
+</head>
+<body class="min-h-full flex flex-col watermark-bg transition-colors duration-500 overflow-x-hidden text-slate-800">
+
+    <!-- TOP HEADER NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/40 dark:bg-slate-950/30 backdrop-blur-md border-b border-white/50 dark:border-slate-900/40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            
+            <!-- Logo & Brand Name -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white/75 dark:bg-slate-900/50 rounded-2xl flex items-center justify-center border border-white/60 dark:border-slate-800 text-slate-700 dark:text-slate-300 shadow-sm">
+                    <i class="fa-solid fa-graduation-cap text-lg text-indigo-500 animate-bounce"></i>
+                </div>
+                <div>
+                    <h1 class="text-xs sm:text-sm md:text-base font-black tracking-tight text-slate-800 dark:text-white leading-tight">Informatika O'qitish Metodikasi</h1>
+                    <p class="text-[9px] sm:text-[10px] font-bold text-slate-500 dark:text-slate-400">Interaktiv Metodik Laboratoriya • 100 ta Savol</p>
+                </div>
+            </div>
+
+            <!-- Premium Navigation Actions -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Glowing Telegram Channel Link button with Shining Glass Effect -->
+                <a href="https://t.me/yovvoyiroq" target="_blank" class="shining-glass inline-flex items-center gap-1.5 px-3 py-2 text-slate-800 dark:text-white rounded-2xl text-[10px] sm:text-xs font-extrabold transition-all duration-200 active:scale-95">
+                    <i class="fa-brands fa-telegram text-sm text-sky-500"></i>
+                    <span>Kanal: <span class="text-indigo-600 dark:text-indigo-400">@yovvoyiroq</span></span>
+                </a>
+
+                <!-- Theme Toggle -->
+                <button id="themeToggleBtn" onclick="toggleTheme()" class="w-9 h-9 flex items-center justify-center bg-white/50 dark:bg-slate-900/40 border border-white/40 dark:border-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/60 rounded-2xl text-slate-600 dark:text-slate-300 transition-all duration-200 active:scale-90">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- FLOATING CORNER CONTACT BADGE -->
+    <div class="fixed bottom-4 right-4 z-50 opacity-80 hover:opacity-100 transition-all duration-200">
+        <a href="https://t.me/yomonboIa" target="_blank" class="glass-panel px-4 py-2.5 rounded-full text-[11px] font-extrabold text-slate-700 dark:text-slate-300 flex items-center gap-2 shadow-lg border border-white/45 hover:scale-105 transition-all">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Aloqa: @yomonboIa</span>
+        </a>
+    </div>
+
+    <!-- MAIN APP WRAPPER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col lg:flex-row gap-6 relative">
+
+        <!-- LEFT SIDEBAR -->
+        <section class="w-full lg:w-80 flex flex-col gap-5 shrink-0">
+            
+            <!-- PROGRESS & STATISTICS -->
+            <div class="glass-panel rounded-3xl p-5 transition-all duration-300">
+                <h2 class="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-3.5 flex items-center justify-between">
+                    <span>O'zlashtirish tahlili</span>
+                    <i class="fa-solid fa-chart-line text-slate-400"></i>
+                </h2>
+                
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="bg-emerald-500/5 dark:bg-emerald-500/10 p-3 rounded-2xl border border-emerald-500/10 dark:border-emerald-500/20 text-center">
+                        <p class="text-[9px] text-emerald-600 dark:text-emerald-400 font-extrabold uppercase">To'g'ri</p>
+                        <p id="correctCountText" class="text-xl font-black text-emerald-600 dark:text-emerald-400">0</p>
+                    </div>
+                    <div class="bg-rose-500/5 dark:bg-rose-500/10 p-3 rounded-2xl border border-rose-500/10 dark:border-rose-500/20 text-center">
+                        <p class="text-[9px] text-rose-600 dark:text-rose-400 font-extrabold uppercase">Noto'g'ri</p>
+                        <p id="wrongCountText" class="text-xl font-black text-rose-600 dark:text-rose-400">0</p>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div>
+                    <div class="flex justify-between text-xs font-extrabold text-slate-600 dark:text-slate-300 mb-1.5">
+                        <span>O'zlashtirish darajasi:</span>
+                        <span id="progressBarPercentage" class="font-black text-indigo-600 dark:text-indigo-400">0%</span>
+                    </div>
+                    <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden border border-white/40">
+                        <div id="progressBarFill" class="h-full bg-slate-700 dark:bg-slate-200 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-slate-500 dark:text-slate-400 font-bold mt-2.5">
+                        <span id="answeredRatioText">Bajarildi: 0 / 100</span>
+                        <span id="bookmarkCountText">Saqlanganlar: 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTROLS & CONFIGURATION -->
+            <div class="glass-panel rounded-3xl p-5 transition-all duration-300 flex flex-col gap-4">
+                <h2 class="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                    <span>Sozlamalar</span>
+                    <i class="fa-solid fa-sliders text-slate-400"></i>
+                </h2>
+
+                <!-- Mode Switcher -->
+                <div class="flex bg-slate-200/50 dark:bg-slate-900/50 p-1 rounded-2xl border border-white/20 dark:border-slate-850">
+                    <button id="modeStudyBtn" onclick="changeQuizMode('study')" class="flex-1 py-2 text-xs font-black rounded-xl transition-all duration-300 bg-white dark:bg-slate-800 text-slate-800 dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+                        O'rganish
+                    </button>
+                    <button id="modeExamBtn" onclick="changeQuizMode('exam')" class="flex-1 py-2 text-xs font-bold rounded-xl transition-all duration-300 text-slate-500 dark:text-slate-400">
+                        Imtihon
+                    </button>
+                </div>
+
+                <!-- Exam Timer -->
+                <div id="examTimerContainer" class="hidden">
+                    <div class="bg-rose-500/10 dark:bg-rose-500/15 border border-rose-500/20 rounded-2xl p-3 flex items-center justify-between text-rose-700 dark:text-rose-400">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-hourglass-half animate-spin text-xs"></i>
+                            <span class="text-xs font-black uppercase">Qolgan vaqt:</span>
+                        </div>
+                        <span id="examTimerText" class="font-mono text-sm font-black">60:00</span>
+                    </div>
+                </div>
+
+                <!-- Category Filter -->
+                <div>
+                    <label class="block text-[9px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Mavzular filtri:</label>
+                    <select id="categoryFilter" onchange="filterQuestions()" class="w-full bg-white/50 dark:bg-slate-900/40 border border-white/35 dark:border-slate-800/40 rounded-xl p-2.5 text-xs font-extrabold focus:outline-none focus:ring-1 focus:ring-indigo-400 text-slate-700 dark:text-slate-300">
+                        <option value="all">Barcha mavzular (100 ta savol)</option>
+                        <option value="didactics">Didaktika va dars tashkil etish</option>
+                        <option value="methods">O'qitish metodlari va "Blended learning"</option>
+                        <option value="regulatory">DTS, o'quv rejalari va standartlar</option>
+                        <option value="software">PDV va virtual laboratoriyalar</option>
+                        <option value="competence">Raqamli kompetensiyalar va maqsadlar</option>
+                        <option value="olympiad">Fan olimpiadalari va baholash tizimi</option>
+                        <option value="bookmarked">Saqlangan qiyin savollar (★)</option>
+                    </select>
+                </div>
+
+                <!-- Search Input -->
+                <div>
+                    <label class="block text-[9px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Savollardan izlash:</label>
+                    <div class="relative">
+                        <input id="searchInput" oninput="filterQuestions()" type="text" placeholder="Kalit so'zni yozing..." class="w-full bg-white/50 dark:bg-slate-900/40 border border-white/35 dark:border-slate-800/40 rounded-xl pl-9 pr-4 py-2.5 text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-indigo-400 text-slate-700 dark:text-slate-300">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-[11px] text-slate-400"></i>
+                    </div>
+                </div>
+
+                <!-- Reset and Shuffle Controls -->
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="shuffleCurrentQuestions()" class="p-2.5 bg-white/40 hover:bg-white/70 dark:bg-slate-900/30 dark:hover:bg-slate-800/40 border border-white/30 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-extrabold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-shuffle text-[10px]"></i>
+                        Aralashtirish
+                    </button>
+                    <button onclick="resetQuizState()" class="p-2.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 font-extrabold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-arrow-rotate-left text-[10px]"></i>
+                        Tozalash
+                    </button>
+                </div>
+            </div>
+
+            <!-- QUESTIONS NAVIGATION MAP -->
+            <div class="glass-panel rounded-3xl p-5 transition-all duration-300 flex flex-col flex-1 min-h-[220px] lg:max-h-[350px]">
+                <h2 class="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-3 flex items-center justify-between">
+                    <span>Savollar xaritasi</span>
+                    <span id="filteredCountBadge" class="text-[10px] bg-slate-200 dark:bg-slate-800 px-2.5 py-0.5 rounded-full font-black text-slate-600 dark:text-slate-300">100/100</span>
+                </h2>
+                
+                <div class="flex flex-wrap gap-x-2 gap-y-1 text-[9px] text-slate-450 font-bold mb-3">
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 bg-white/50 dark:bg-slate-800 rounded border border-white/45"></span> Ochiq</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 bg-emerald-500 rounded"></span> To'g'ri</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 bg-rose-500 rounded"></span> Xato</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 bg-amber-500 rounded"></span> Yechilgan</span>
+                </div>
+
+                <div id="questionsMapContainer" class="grid grid-cols-5 sm:grid-cols-10 lg:grid-cols-5 gap-1.5 overflow-y-auto flex-1 pr-1 custom-scrollbar">
+                    <!-- Dynamic indicators injected here -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- RIGHT WORKPLACE (INTERACTIVE CORE EMBEDDED DIAGNOSTICS & SCRATCHPAD) -->
+        <section class="flex-1 flex flex-col lg:flex-row gap-5">
+            
+            <!-- LEFT COLUMN: ACTIVE TEST COMPONENT -->
+            <div class="flex-1 flex flex-col gap-5 min-w-0">
+                <!-- CURRENT QUESTION CONTAINER -->
+                <div class="glass-panel rounded-[32px] p-6 sm:p-8 transition-all duration-300 flex flex-col gap-6 relative overflow-hidden">
+                    <div class="absolute inset-0 watermark-bg opacity-[0.05] pointer-events-none"></div>
+
+                    <!-- Question Header -->
+                    <div class="flex items-center justify-between gap-3 z-10">
+                        <div class="flex items-center gap-2">
+                            <span id="questionIndexBadge" class="px-3.5 py-1 bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 text-xs font-black rounded-full">SAVOL 1</span>
+                            <span id="questionSourceBadge" class="px-3.5 py-1 bg-white/50 dark:bg-slate-900/40 text-slate-600 dark:text-slate-400 text-[10px] font-bold rounded-full max-w-[150px] sm:max-w-[300px] truncate border border-white/20">Mavzu</span>
+                        </div>
+                        <button id="bookmarkBtn" onclick="toggleBookmarkActiveQuestion()" class="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-white/50 dark:hover:bg-slate-800/40 text-slate-400 dark:text-slate-500 transition-all active:scale-90">
+                            <i class="fa-solid fa-star text-base"></i>
+                        </button>
+                    </div>
+
+                    <!-- Question Text -->
+                    <div class="z-10">
+                        <h3 id="questionTextDisplay" class="text-sm sm:text-base font-extrabold text-slate-850 dark:text-white leading-relaxed bg-white/35 dark:bg-slate-900/20 p-4 rounded-2xl border border-white/35 dark:border-slate-800/50">
+                            ...
+                        </h3>
+                    </div>
+
+                    <!-- Options List Container -->
+                    <div id="optionsListContainer" class="flex flex-col gap-3 z-10">
+                        <!-- Dynamic shuffled options will be loaded here -->
+                    </div>
+
+                    <!-- Navigation Controls -->
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/25 dark:border-slate-850 pt-5 mt-4 z-10">
+                        <div class="flex gap-2 w-full sm:w-auto">
+                            <button id="prevBtn" onclick="navigateToQuestion(-1)" class="flex-1 sm:flex-initial px-5 py-3 border border-white/30 dark:border-slate-800 rounded-xl hover:bg-white/40 dark:hover:bg-slate-800/30 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all text-slate-700 dark:text-slate-300">
+                                <i class="fa-solid fa-arrow-left"></i> Oldingisi
+                            </button>
+                            <button id="nextBtn" onclick="navigateToQuestion(1)" class="flex-1 sm:flex-initial px-5 py-3 bg-white/60 dark:bg-slate-800/40 hover:bg-white/80 dark:hover:bg-slate-850/55 border border-white/45 dark:border-slate-800 text-slate-850 dark:text-white font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all">
+                                Keyingisi <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- Finish Exam Action -->
+                        <div class="w-full sm:w-auto flex justify-end">
+                            <button id="examSubmitBtn" onclick="finishExamPrompt()" class="hidden w-full sm:w-auto px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-black text-xs rounded-xl flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg transition-all animate-pulse">
+                                <i class="fa-solid fa-square-check"></i> Imtihonni topshirish
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- EXPLANATION VIEW CARD (Study Mode Only) -->
+                <div id="explanationCard" class="bg-white/30 dark:bg-slate-900/10 border border-white/40 dark:border-slate-800/40 rounded-[32px] p-6 sm:p-8 shadow-sm transition-all duration-300 flex flex-col gap-3">
+                    <div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                        <i class="fa-solid fa-circle-info text-base text-indigo-500 dark:text-indigo-400"></i>
+                        <h4 class="text-xs font-black uppercase tracking-wider">Tasdiqlangan To'g'ri Javob Izohi</h4>
+                    </div>
+                    <div class="bg-white/40 dark:bg-slate-900/40 rounded-2xl p-4 border border-white/40 dark:border-slate-800/50">
+                        <p id="explanationTextDisplay" class="text-xs sm:text-sm font-semibold italic text-slate-700 dark:text-slate-300 leading-relaxed">
+                            ...
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: INTEGRATED INTERACTIVE PEDAGOGICAL WORKPLACE (AVATAR & CANVAS) -->
+            <div class="w-full lg:w-96 flex flex-col gap-5 shrink-0">
+                
+                <!-- PEDAGOGICAL AI COMPANION (ZIYOKOR AI) -->
+                <div class="glass-panel rounded-[32px] p-5 flex flex-col items-center text-center gap-3">
+                    <div class="flex items-center justify-between w-full border-b border-white/20 pb-2 mb-2">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-robot text-indigo-500"></i>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-300">Metodik Maslahatchi</span>
+                        </div>
+                        <span class="text-[9px] px-2 py-0.5 bg-emerald-500/10 text-emerald-500 rounded-full font-bold">Faol</span>
+                    </div>
+
+                    <!-- AI Avatar Animation Container -->
+                    <div class="relative w-28 h-28 flex items-center justify-center bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full border border-indigo-500/15">
+                        <svg id="aiAvatarSvg" class="w-20 h-20 text-indigo-500 transition-all duration-500" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Robot head -->
+                            <rect x="25" y="30" width="50" height="40" rx="15" fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-width="4"/>
+                            <!-- Ears -->
+                            <rect x="18" y="45" width="7" height="10" rx="3" fill="currentColor"/>
+                            <rect x="75" y="45" width="7" height="10" rx="3" fill="currentColor"/>
+                            <!-- Antenna -->
+                            <line x1="50" y1="30" x2="50" y2="15" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <circle id="antennaTip" cx="50" cy="12" r="6" fill="currentColor" class="animate-pulse"/>
+                            <!-- Eyes -->
+                            <circle id="leftEye" cx="40" cy="48" r="5" fill="currentColor"/>
+                            <circle id="rightEye" cx="60" cy="48" r="5" fill="currentColor"/>
+                            <!-- Mouth -->
+                            <path id="robotMouth" d="M 40 60 Q 50 60 60 60" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-black text-slate-800 dark:text-white">Ziyokor AI</h4>
+                        <p id="aiSpeechText" class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-1.5 italic px-2">
+                            "Salom! Informatika o'qitish metodikasi laboratoriyasiga xush kelibsiz. Savollarni boshlang!"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- INTERACTIVE PEDAGOGICAL SCRATCHPAD (WHITEBOARD) -->
+                <div class="glass-panel rounded-[32px] p-5 flex flex-col gap-3 flex-1">
+                    <div class="flex items-center justify-between border-b border-white/20 pb-2">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler text-indigo-500"></i>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-300">Pedagogik Qoralama (Whiteboard)</span>
+                        </div>
+                        <button onclick="clearScratchpad()" class="text-[9px] px-2 py-1 bg-rose-500/10 text-rose-500 rounded-lg hover:bg-rose-500/20 font-bold transition-all">
+                            Tozalash
+                        </button>
+                    </div>
+
+                    <!-- Canvas Board -->
+                    <div class="relative flex-1 min-h-[180px] bg-white/40 dark:bg-slate-900/30 border border-slate-300/30 dark:border-slate-800/40 rounded-2xl overflow-hidden cursor-crosshair">
+                        <canvas id="scratchpadCanvas" class="absolute inset-0 w-full h-full"></canvas>
+                        <div id="scratchpadHint" class="absolute inset-0 flex items-center justify-center pointer-events-none text-slate-400 text-[10px] font-semibold text-center p-4">
+                            Sinf yoki Venn diagrammasini chizish yoki qaydlar yozish uchun barmog'ingiz yoki sichqoncha bilan yozing...
+                        </div>
+                    </div>
+
+                    <!-- Brush Configuration -->
+                    <div class="flex items-center justify-between gap-3 text-[10px] font-bold text-slate-500">
+                        <div class="flex items-center gap-2">
+                            <span>Qalam rangi:</span>
+                            <div class="flex gap-1">
+                                <button onclick="setScratchpadColor('#6366f1')" class="w-4 h-4 rounded-full bg-indigo-500 border border-white/30"></button>
+                                <button onclick="setScratchpadColor('#10b981')" class="w-4 h-4 rounded-full bg-emerald-500 border border-white/30"></button>
+                                <button onclick="setScratchpadColor('#ef4444')" class="w-4 h-4 rounded-full bg-rose-500 border border-white/30"></button>
+                                <button onclick="setScratchpadColor('#f59e0b')" class="w-4 h-4 rounded-full bg-amber-500 border border-white/30"></button>
+                                <button id="eraseColorBtn" onclick="setScratchpadColor('eraser')" class="w-4 h-4 rounded flex items-center justify-center bg-slate-200 border border-white/30"><i class="fa-solid fa-eraser text-[8px] text-slate-600"></i></button>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span>O'lcham:</span>
+                            <input type="range" id="brushSizeSlider" min="1" max="10" value="3" class="w-16 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- RESULT MODAL -->
+    <div id="examResultModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-panel border border-white/40 dark:border-slate-800 rounded-[32px] max-w-lg w-full overflow-hidden shadow-2xl animate-scale-up">
+            
+            <div class="p-6 sm:p-8 flex flex-col items-center text-center border-b border-white/20 dark:border-slate-850">
+                <div class="w-16 h-16 bg-white/20 dark:bg-slate-900/40 text-slate-850 dark:text-white border border-white/30 dark:border-slate-800 rounded-full flex items-center justify-center text-2xl mb-4">
+                    <i class="fa-solid fa-graduation-cap animate-bounce text-indigo-500 dark:text-indigo-400"></i>
+                </div>
+                <h3 class="text-xl font-black text-slate-900 dark:text-white">Imtihon Yakunlandi!</h3>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 font-bold">Informatika o'qitish metodikasi fanidan monitoring natijalari.</p>
+
+                <!-- Numerical Statistics -->
+                <div class="my-6 grid grid-cols-3 gap-3 w-full">
+                    <div class="bg-white/40 dark:bg-slate-900/30 p-3.5 rounded-2xl text-center border border-white/20 dark:border-slate-800">
+                        <p class="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase">Yechildi</p>
+                        <p id="modalTotalAnswered" class="text-sm font-black text-slate-800 dark:text-white">0</p>
+                    </div>
+                    <div class="bg-emerald-500/10 p-3.5 rounded-2xl text-center border border-emerald-500/20">
+                        <p class="text-[9px] font-black text-emerald-500 uppercase">To'g'ri</p>
+                        <p id="modalCorrect" class="text-sm font-black text-emerald-600 dark:text-emerald-400">0</p>
+                    </div>
+                    <div class="bg-rose-500/10 p-3.5 rounded-2xl text-center border border-rose-500/20">
+                        <p class="text-[9px] font-black text-rose-500 uppercase">Noto'g'ri</p>
+                        <p id="modalIncorrect" class="text-sm font-black text-rose-600 dark:text-rose-400">0</p>
+                    </div>
+                </div>
+
+                <!-- Horizontal Percent Bar -->
+                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-3 mb-2 overflow-hidden border border-white/20">
+                    <div id="modalPercentBar" class="h-full bg-slate-800 dark:bg-slate-200 rounded-full" style="width: 0%"></div>
+                </div>
+                <p id="modalPercentText" class="text-xs font-black text-slate-800 dark:text-white">Ko'rsatkich: 0%</p>
+                <p id="modalGradeText" class="text-[11px] font-bold text-slate-500 dark:text-slate-400 mt-3 px-2 leading-relaxed"></p>
+            </div>
+
+            <div class="p-4 bg-white/20 dark:bg-slate-950/40 flex flex-col gap-2">
+                <button onclick="reviewExamAnswers()" class="w-full py-3 bg-slate-900 hover:bg-black dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 font-extrabold text-xs rounded-2xl transition-all shadow-sm">
+                    Xatolarni tahlil qilish (O'rganish rejimida)
+                </button>
+                <button onclick="closeModalAndReset()" class="w-full py-3 bg-white/40 hover:bg-white/60 dark:bg-slate-900/40 dark:hover:bg-slate-800/40 text-slate-800 dark:text-slate-300 border border-white/20 dark:border-slate-800 font-bold text-[10px] rounded-2xl transition-all">
+                    Qayta boshlash
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CORE JAVASCRIPT DATABASE (100 questions from the pedagogy dataset) -->
+    <script>
+        const rawQuestionsData = [
+            {
+                id: 1,
+                q: "Oʻqituvchi va oʻquvchi muloqotini bogʻlovchi asosiy vositani belgilang.",
+                answer: "Darslik (O'quv adabiyoti)",
+                options: ["Darslik (O'quv adabiyoti)", "Sinf jurnali", "Sinf partasi", "Sinf xonasi"],
+                explain: "Darslik o'qituvchi va o'quvchi o'rtasidagi axborot almashinuvi hamda muloqotni tashkil etuvchi moddiy va ilmiy asos hisoblanadi.",
+                cat: "didactics"
+            },
+            {
+                id: 2,
+                q: "Taʼlim maqsadi, oʻquv dasturi, didaktik talablarga koʻra ilmiy bilimlari beruvchi manba nima?",
+                answer: "Darslik (O'quv qo'llanma)",
+                options: ["Darslik (O'quv qo'llanma)", "Sinf jurnali", "Dars jadvali", "Metodik tavsiyaнома"],
+                explain: "Darslik dars maqsadiga hamda didaktik prinsiplarga muvofiq ravishda o'quvchilarga tizimli bilim beruvchi yagona tayanch manbadir.",
+                cat: "didactics"
+            },
+            {
+                id: 3,
+                q: "Oʻquv yili davomida oʻzlashtirilishi zarur boʻlgan bilim, koʻnikma va malakalar hajmini belgilovchi hujjat nomi nima?",
+                answer: "O'quv dasturi",
+                options: ["O'quv dasturi", "Dars jadvali", "Konspekt", "Pedagogik reja"],
+                explain: "O'quv dasturi muayyan fan bo'yicha yil davomida o'zlashtirilishi talab etiladigan mavzular ketma-ketligi va bilimlar hajmini belgilaydi.",
+                cat: "regulatory"
+            },
+            {
+                id: 4,
+                q: "Oʻquv axborotlarini grafik shakliga o‘tkazish bu – ..........",
+                answer: "Vizualizatsiya (Grafik organayzerlar)",
+                options: ["Vizualizatsiya (Grafik organayzerlar)", "Yodlash", "Baholash", "Kataloglashtirish"],
+                explain: "O'quv axborotlarini chizmalar, grafiklar yoki jadvallar shakliga keltirish jarayoni vizualizatsiya deb ataladi.",
+                cat: "methods"
+            },
+            {
+                id: 5,
+                q: "Talabalarni mavzu xususida keng va har tomonlama fikr yuritishga undovchi metodni belgilang.",
+                answer: "Aqliy hujum (Brainstorming)",
+                options: ["Aqliy hujum (Brainstorming)", "Ma'ruza", "Yodlash", "Diktant"],
+                explain: "Aqliy hujum metodi talabalarga cheklovsiz, erkin va kreativ tarzda barcha g'oyalarini o'rtaga tashlab keng fikrlash imkonini beradi.",
+                cat: "methods"
+            },
+            {
+                id: 6,
+                q: "Oʻquv materiali mazmunini oʻz fikrlari bilan ifodalash nima?",
+                answer: "Interpretatsiya (Qayta bayon qilish)",
+                options: ["Interpretatsiya (Qayta bayon qilish)", "Konspekt qilish", "Ko'chirish", "Muloqot"],
+                explain: "O'zlashtirilgan ilmiy bilimlarni o'z so'zlari va tushunchalari asosida qayta tushuntirib bera olish interpretatsiya hisoblanadi.",
+                cat: "didactics"
+            },
+            {
+                id: 7,
+                q: "Har tomonlama fikrlash bu – .........",
+                answer: "Tanqidiy fikrlash (Critical thinking)",
+                options: ["Tanqidiy fikrlash (Critical thinking)", "Yod olish", "Sinxron eshitish", "Konsentratsiya"],
+                explain: "Tanqidiy fikrlash — muammoni har tomonlama, xolis tahlil qilish va mantiqiy xulosalar chiqarish qobiliyatidir.",
+                cat: "competence"
+            },
+            {
+                id: 8,
+                q: "Pedagogning yuksak darajadagi yetukligi nimalarda koʻrinadi?",
+                answer: "Pedagogik mahorat va kasbiy kompetensiyada",
+                options: ["Pedagogik mahorat va kasbiy kompetensiyada", "Faqat yoshi va stajida", "Faqat dars soatlarining ko'pligida", "Sinf xonasining bezatilishida"],
+                explain: "Pedagogik yetuklik — o'qituvchining dars o'tish mahorati, kommunikativ va axloqiy sifatlari hamda kasbiy kompetensiyalarida namoyon bo'ladi.",
+                cat: "competence"
+            },
+            {
+                id: 9,
+                q: "Metod tushunchasiga toʻgʻri berilgan javobni belgilang.",
+                answer: "Maqsadga erishish usuli, yo'li",
+                options: ["Maqsadga erishish usuli, yo'li", "Faqat darslik nomi", "O'qitish vositasi", "Baholash varag'i"],
+                explain: "Metod (yunoncha 'metodos' - yo'l, usul) — ta'limda qo'yilgan maqsadlarga erishish uchun qo'llaniladigan yo'l va uslublar tizimidir.",
+                cat: "methods"
+            },
+            {
+                id: 10,
+                q: "Dars, oʻz navbatida bir butunlikdir. U qanday qismlardan tashkil topgan?",
+                answer: "Kirish, asosiy qism va yakuniy (tahliliy) qism",
+                options: ["Kirish, asosiy qism va yakuniy (tahliliy) qism", "Faqat yo'qlama va baholash", "Faqat yangi mavzuni tushuntirish", "Mustaqil ish va uy vazifasi"],
+                explain: "Dars tizimi mantiqiy jihatdan tashkiliy/kirish, asosiy o'quv faoliyati hamda darsni yakunlash va tahlil qilish qismlaridan iborat.",
+                cat: "didactics"
+            },
+            {
+                id: 11,
+                q: "Dars mashgʻulotiga berilgan toʻgʻri taʼrifni belgilang.",
+                answer: "Tarkibi barqaror, aniq jadval va vaqtga asoslangan ta'limning tashkiliy shakli",
+                options: [
+                    "Tarkibi barqaror, aniq jadval va vaqtga asoslangan ta'limning tashkiliy shakli",
+                    "Faqat o'qituvchining ma'ruza qilishi",
+                    "Sinfda mustaqil ravishda kitob o'qish",
+                    "Har qanday joyda o'tkaziladigan erkin suhbat"
+                ],
+                explain: "Dars — muayyan vaqt (masalan 45 daqiqa), doimiy o'quvchilar tarkibi va aniq o'quv dasturi asosida tashkil etiladigan ta'lim shaklidir.",
+                cat: "didactics"
+            },
+            {
+                id: 12,
+                q: "Qanday taʼlim turlari uchun DTS joriy etiladi?",
+                answer: "Davlat akkreditatsiyasidan o'tadigan barcha ta'lim turlari uchun",
+                options: [
+                    "Davlat akkreditatsiyasidan o'tadigan barcha ta'lim turlari uchun",
+                    "Faqat xususiy to'garaklar uchun",
+                    "Faqat oliy ta'limdan keyingi ilmiy izlanishlar uchun",
+                    "Faqat bog'chalar uchun"
+                ],
+                explain: "Davlat Ta'lim Standartlari (DTS) davlat tomonidan tasdiqlangan va akkreditatsiyalangan barcha bosqichdagi ta'lim tizimlari uchun majburiydir.",
+                cat: "regulatory"
+            },
+            {
+                id: 13,
+                q: "Ta’lim tizimida tajribadan oʻtgan dars turlari koʻrsatilgan toʻgʻri javobni belgilang.",
+                answer: "Yangi bilim beruvchi, mustahkamlovchi va nazorat darslari",
+                options: [
+                    "Yangi bilim beruvchi, mustahkamlovchi va nazorat darslari",
+                    "Faqat erkin o'yin darslari",
+                    "Faqat imtihon topshirish darslari",
+                    "Ma'ruza va konsultatsiya darslari xolos"
+                ],
+                explain: "Klassik pedagogikada darslar yangi mavzuni tushuntirish, o'tilganni mustahkamlash, nazorat qilish hamda aralash dars turlariga bo'linadi.",
+                cat: "didactics"
+            },
+            {
+                id: 14,
+                q: "Ta’lim jarayonida eng koʻp qoʻllaniladigan dars turini belgilang.",
+                answer: "Aralash (Kombinatsiyalashgan) dars",
+                options: ["Aralash (Kombinatsiyalashgan) dars", "Faqat nazorat darsi", "Faqat laboratoriya darsi", "Ekskursiya darsi"],
+                explain: "Kombinatsiyalashgan darsda yo'qlama, uy vazifasini tekshirish, yangi mavzu tushuntirish va mustahkamlash bosqichlari birga kechadi.",
+                cat: "didactics"
+            },
+            {
+                id: 15,
+                q: "Nuqtalar oʻrnini toʻldiring. Oʻqitishning tashkiliy shakllari ............. boʻyicha tasniflanadi.",
+                answer: "O'quvchilar soni va o'qitish joyi",
+                options: ["O'quvchilar soni va o'qitish joyi", "O'qituvchining yoshi", "Baholash daftarchasi turi", "Kompyuterlar soni"],
+                explain: "Tashkiliy shakllar o'quvchilar soni (individual, guruh, sinf) hamda dars joyiga (auditoriya, onlayn, ekskursiya) ko'ra farqlanadi.",
+                cat: "regulatory"
+            },
+            {
+                id: 16,
+                q: "Аuditoriyadan tashqarida bajariladigan mustaqil ishlarga nimalarni kiritish mumkin?",
+                answer: "Uy vazifasi, ijodiy loyihalar va referatlar",
+                options: ["Uy vazifasi, ijodiy loyihalar va referatlar", "Sinfda yozilgan nazorat ishlari", "O'qituvchi ma'ruzasi", "Yo'qlama jarayoni"],
+                explain: "O'quvchilarning darsdan tashqari vaqtda mustaqil ravishda uyda yoki kutubxonada bajargan loyihalari auditoriyadan tashqari mustaqil ishlardir.",
+                cat: "didactics"
+            },
+            {
+                id: 17,
+                q: "Oʻquv jarayonini rejalashtirish toʻgʻri koʻrsatilgan javobni belgilang.",
+                answer: "Kalendar-tematik reja va dars ishlanmasi (konspekt)",
+                options: [
+                    "Kalendar-tematik reja va dars ishlanmasi (konspekt)",
+                    "Dars jadvali va yo'qlama varag'i",
+                    "Faqat sinf jurnali",
+                    "Faqat imtihon biletlari"
+                ],
+                explain: "O'quv jarayonini rejalashtirish o'qituvchi tomonidan kalendar reja tuzish va har bir dars uchun konspekt yozish orqali amalga oshadi.",
+                cat: "regulatory"
+            },
+            {
+                id: 18,
+                q: "Oʻquv mashgʻulotlarini rejalashtirishtirishning qanday koʻrinishlari mavjud?",
+                answer: "Yillik, choraklik va kunlik (darsbay) rejalashtirish",
+                options: [
+                    "Yillik, choraklik va kunlik (darsbay) rejalashtirish",
+                    "Faqat haftalik va oylik",
+                    "Faqat imtihon paytidagi rejalashtirish",
+                    "Faqat dars boshlanishidagi reja"
+                ],
+                explain: "Tizimli dars tashkil etish uchun yil boshida istiqbolli (yillik, choraklik) va har dars uchun joriy reja tuziladi.",
+                cat: "regulatory"
+            },
+            {
+                id: 19,
+                q: "Nuqtalar oʻrnida tushirib qoldirilgan iborani toping. Bilimlarni muammoli bayon qilish, talabalarni izlanishga undash, kichik ilmiy tadqiqotlarni olib borish. Ular ...",
+                answer: "Muammoli va tadqiqot metodlaridir",
+                options: ["Muammoli va tadqiqot metodlaridir", "Faqat yodlash metodlari", "An'anaviy tushuntirish metodlari", "Nazorat vositalaridir"],
+                explain: "Talabani muammoli vaziyatlar bilan izlanishga undash va ilmiy tadqiqotga jalb qilish — muammoli ta'lim metodlarining asosi.",
+                cat: "methods"
+            },
+            {
+                id: 20,
+                q: "Malaka nima?",
+                answer: "Avtomatlashgan tarzda bajariladigan harakat yoki ko'nikma",
+                options: ["Avtomatlashgan tarzda bajariladigan harakat yoki ko'nikma", "Nazariy bilimlar to'plami", "Oddiy ma'lumotlarni yodlash", "Baholash tizimi"],
+                explain: "Malaka — o'rganilgan harakat yoki ko'nikmaning takrorlanishi natijasida ongli nazoratsiz, avtomatlashgan tarzda bajariladigan darajasidir.",
+                cat: "didactics"
+            },
+            {
+                id: 21,
+                q: "Koʻnikma nima?",
+                answer: "Olingan bilimlar asosida ma'lum harakatni bajara olish qobiliyati",
+                options: [
+                    "Olingan bilimlar asosida ma'lum harakatni bajara olish qobiliyati",
+                    "Faqat nazariy ma'lumot",
+                    "Harakatni ongsiz avtomatik bajarish",
+                    "Darslikni yoddan bilish"
+                ],
+                explain: "Ko'nikma — o'quvchining o'z nazariy bilimlariga tayanib, amaliy harakatni qanday bajarishni bilishi va bajara olishidir.",
+                cat: "didactics"
+            },
+            {
+                id: 22,
+                q: "Bilim nima?",
+                answer: "Inson ongida voqelikning tushunchalar va dalillar tizimida aks etishi",
+                options: [
+                    "Inson ongida voqelikning tushunchalar va dalillar tizimida aks etishi",
+                    "Amaliy harakatlarni mukammal bajarish",
+                    "Faqat kompyuter dasturlari tizimi",
+                    "Dars jadvali qoidalari"
+                ],
+                explain: "Bilim — inson miyasida atrof-muhit qonuniyatlarining ilmiy dalillar, qoidalar va nazariyalar ko'rinishida saqlanishidir.",
+                cat: "didactics"
+            },
+            {
+                id: 23,
+                q: "Pedagogik kengashlarga dars jadvalini tuzishda tayanch oʻquv rejadagi darslarni necha foizgacha oʻzgartirish huquqi beriladi?",
+                answer: "15 foizgacha",
+                options: ["15 foizgacha", "5 foizgacha", "25 foizgacha", "50 foizgacha"],
+                explain: "Maktab pedagogik kengashiga muayyan fanlarni chuqur o'qitish maqsadida dars rejasiga 15% gacha o'zgartirish kiritish imkoni beriladi.",
+                cat: "regulatory"
+            },
+            {
+                id: 24,
+                q: "Umumiy oʻrta ta’lim muassasalarining dars jadvalini ishlab chiqish uchun qanday hujjat asos hisoblanadi?",
+                answer: "Tayanch o'quv rejasi (Syllabus)",
+                options: ["Tayanch o'quv rejasi (Syllabus)", "Maktab ustavi", "Sinf jurnali", "Baholash mezonlari"],
+                explain: "Dars jadvali vazirlik tomonidan tasdiqlangan yillik Tayanch o'quv rejasidagi soatlar taqsimoti asosida tuziladi.",
+                cat: "regulatory"
+            },
+            {
+                id: 25,
+                q: "Umumiy oʻrta ta’limning tayanch oʻquv rejasi qanday hujjat hisoblanadi?",
+                answer: "O'quv fanlari va haftalik soatlar hajmini belgilovchi davlat hujjati",
+                options: [
+                    "O'quv fanlari va haftalik soatlar hajmini belgilovchi davlat hujjati",
+                    "Faqat sinf jurnali namunasi",
+                    "O'qituvchining shaxsiy dars ishlanmasi",
+                    "Imtihon topshiriqlari to'plami"
+                ],
+                explain: "Tayanch o'quv rejasi maktabda o'qitiladigan fanlar ro'yxati va ularga ajratilgan dars soatlarini qonuniy belgilovchi asosiy hujjatdir.",
+                cat: "regulatory"
+            },
+            {
+                id: 26,
+                q: "Nuqtalar oʻrnini toʻldiring. Informatika oʻquv xonasida tabiiy yorugʻlikning asosiy oqimi kompyuterda ishlovchining ................. tomonidan yoʻnalgan boʻlishi mumkin emas.",
+                answer: "Orqa va oldi tomondan",
+                options: ["Orqa va oldi tomondan", "Chap tomondan", "Tepa tomondan", "Hech qaysi tomondan"],
+                explain: "Monitor ekraniga to'g'ridan-to'g'ri quyosh nuri tushishi ko'zni toliqtiradi hamda ekranning ko'rinishini qiyinlashtiradi.",
+                cat: "regulatory"
+            },
+            {
+                id: 27,
+                q: "Pedagogik dasturiy vositalarni belgilang.",
+                answer: "O'quv jarayonini kompyuterlashtirish va avtomatlashtirishga qaratilgan dasturlar",
+                options: [
+                    "O'quv jarayonini kompyuterlashtirish va avtomatlashtirishga qaratilgan dasturlar",
+                    "Faqat kompyuter o'yinlari",
+                    "Tizimli drayverlar va operatsion tizimlar",
+                    "Matn muharrirlari xolos"
+                ],
+                explain: "Pedagogik dasturiy vositalar (PDV) — o'quvchilarga bilim berish, mustahkamlash va bilimini baholash uchun maxsus yaratilgan dasturlardir.",
+                cat: "software"
+            },
+            {
+                id: 28,
+                q: "Aniq bir topshiriqni bajarish uchun kerakli nazariy darsda olingan maxsus bilimlar asosida malaka va koʻnikmalar shakllantirish maqsadida olib boriladigan rejali didaktik harakatga asoslangan mashgʻulotlarni belgilang.",
+                answer: "Amaliy va laboratoriya mashg'ulotlari",
+                options: ["Amaliy va laboratoriya mashg'ulotlari", "Ma'ruza darslari", "Konsultatsiya darslari", "Mustaqil uy mutolaasi"],
+                explain: "Nazariy bilimlarni real tajribalar yordamida ko'nikmaga aylantirish uchun amaliy hamda laboratoriya mashg'ulotlari o'tkaziladi.",
+                cat: "didactics"
+            },
+            {
+                id: 29,
+                q: "Oʻqitishning qiziqtiruvchi usullari toʻgʻri keltirilgan javobni belgilang.",
+                answer: "Didaktik o'yinlar, viktorinalar va muammoli munozaralar",
+                options: [
+                    "Didaktik o'yinlar, viktorinalar va muammoli munozaralar",
+                    "Faqat qat'iy ma'ruzalar",
+                    "Darslikdan ko'chirib yozish",
+                    "Yoddan aytib berish usullari"
+                ],
+                explain: "O'quvchini fanga qiziqtirish uchun turli xil o'yin texnologiyalari hamda interaktiv bellashuvlardan foydalaniladi.",
+                cat: "methods"
+            },
+            {
+                id: 30,
+                q: "\"Blended learning\" (aralash ta’lim) necha turga boʻlinadi?",
+                answer: "4 ta asosiy modelga",
+                options: ["4 ta asosiy modelga", "2 ta modelga", "10 ta modelga", "5 ta modelga"],
+                explain: "Aralash ta'lim asosan 4 ta modelga (Rotatsiya, Flex, Alakart, Virtual) bo'linib o'qitiladi.",
+                cat: "blended"
+            },
+            {
+                id: 31,
+                q: "\"Blended learning\" (aralash ta’lim) ning koʻrinishlari toʻgʻri keltirilgan javobni belgilang.",
+                answer: "Onlayn va an'anaviy yuzma-yuz ta'limning integratsiyasi",
+                options: [
+                    "Onlayn va an'anaviy yuzma-yuz ta'limning integratsiyasi",
+                    "Faqat masofadan o'qish tizimi",
+                    "Faqat sinfda kitobdan o'qish",
+                    "Maktabdan tashqari to'garaklar"
+                ],
+                explain: "Aralash ta'lim — an'anaviy sinf tizimi va zamonaviy onlayn ta'lim platformalarini o'zaro birlashtiradi.",
+                cat: "blended"
+            },
+            {
+                id: 32,
+                q: "«Informatika o‘qitish metodikasi» fani nimani o‘rganadi?",
+                answer: "Informatika fanini o'qitish qonuniyatlari, prinsiplari va usullarini",
+                options: [
+                    "Informatika fanini o'qitish qonuniyatlari, prinsiplari va usullarini",
+                    "Faqat kompyuter qurilmalarini yig'ishni",
+                    "Faqat Python dasturlash tilini",
+                    "Internet tarmoqlarini xavfsiz sozlashni"
+                ],
+                explain: "Informatika o'qitish metodikasi — maktabda ushbu fanni qanday qonuniyatlar va usullar bilan o'quvchilarga yetkazishni o'rgatadi.",
+                cat: "methodology"
+            },
+            {
+                id: 33,
+                q: "«Informatika o‘qitish metodikasi» fan sifatida qachondan boshlab rivojlana boshlagan?",
+                answer: "XX asrning 80-yillaridan boshlab",
+                options: ["XX asrning 80-yillaridan boshlab", "XIX asrning oxiridan", "XX asrning 50-yillaridan", "XXI asr boshidan"],
+                explain: "Maktablarda birinchi bor 'Informatika' fani kiritilishi (1985-yil) munosabati bilan uning metodikasi ham XX asrning 80-yillaridan shakllandi.",
+                cat: "methodology"
+            },
+            {
+                id: 34,
+                q: "Dasturlash boʻyicha aniq bir masalani hal etishda guruhlarga boʻlinib ishlash qaysi uslubga kiradi?",
+                answer: "Guruhlarda ishlash (Teamwork / Hackathon)",
+                options: ["Guruhlarda ishlash (Teamwork / Hackathon)", "Faqat yakka tartibdagi dars", "Passiv tinglash", "Diktant yozish"],
+                explain: "O'quvchilar guruhlarga bo'linib, muayyan loyihani maslahatlashib yechishi guruhli o'qitish metodiga mansubdir.",
+                cat: "methods"
+            },
+            {
+                id: 35,
+                q: "Interfaol mashgʻulotdan maqsad nima?",
+                answer: "O'quvchini dars jarayonida faol ishtirokchiga aylantirish va hamkorlikda ishlash",
+                options: [
+                    "O'quvchini dars jarayonida faol ishtirokchiga aylantirish va hamkorlikda ishlash",
+                    "Faqat jim o'tirib o'qituvchini tinglash",
+                    "O'quvchini darsdan haydab yuborish",
+                    "Faqat nazorat ishlarini topshirish"
+                ],
+                explain: "Interfaol mashg'ulot o'quvchining muloqot va hamkorlik qobiliyatlarini rivojlantirib, darsning faol qatnashchisiga aylantiradi.",
+                cat: "methods"
+            },
+            {
+                id: 36,
+                q: "Kompetensiya nima?",
+                answer: "Bilim va ko'nikmalarni kundalik hayot va kasbiy faoliyatda qo'llay olish qobiliyati",
+                options: [
+                    "Bilim va ko'nikmalarni kundalik hayot va kasbiy faoliyatda qo'llay olish qobiliyati",
+                    "Faqat kitobdagi qoidalarni yodlash",
+                    "Kompyuter qurilmalarining narxi",
+                    "Sinfda intizomli bo'lish qoidasi"
+                ],
+                explain: "Kompetensiya — o'quvchining olgan nazariy bilimlarini real hayotiy vaziyatlarda to'g'ri qo'llay olish darajasidir.",
+                cat: "competence"
+            },
+            {
+                id: 37,
+                q: "Kompyuter monitoriga tabiiy yorugʻlikning asosiy oqimi tushish yoʻnalishini belgilang.",
+                answer: "Solyar (yon yoki chap) tomondan tushishi kerak",
+                options: ["Solyar (yon yoki chap) tomondan tushishi kerak", "To'g'ri peshonadan tushishi kerak", "Orqa tomondan tushishi kerak", "Ekranning o'zidan nur tushmasligi kerak"],
+                explain: "Sanitariya qoidalariga ko'ra yorug'lik asosan chap tomondan tushganda ko'zning toliqishi kam bo'ladi.",
+                cat: "regulatory"
+            },
+            {
+                id: 38,
+                q: "«Informatika» fanini o‘qitishda asosiy o‘qish shakllarini koʻrsating.",
+                answer: "Sinf-dars tizimi, amaliy va laboratoriya darslari",
+                options: [
+                    "Sinf-dars tizimi, amaliy va laboratoriya darslari",
+                    "Faqat uyda kitob o'qish shakli",
+                    "Faqat o'yinlar o'ynash shakli",
+                    "Faqat imtihon topshirish shakli"
+                ],
+                explain: "Informatika fanini o'qitishning asosiy shakli dars bo'lib, u bevosita kompyuter laboratoriyalaridagi amaliyotlar bilan birga olib boriladi.",
+                cat: "didactics"
+            },
+            {
+                id: 39,
+                q: "\"Informatika\" fani boʻyicha mos baholash turlari koʻrsatilgan javobni belgilang.",
+                answer: "Joriy, oraliq, yakuniy va jismoniy (amaliy koderlik) baholash",
+                options: [
+                    "Joriy, oraliq, yakuniy va jismoniy (amaliy koderlik) baholash",
+                    "Faqat sinf jurnali orqali baholash",
+                    "Faqat dars soatidagi yo'qlama baholash",
+                    "Hech qanday baholash o'tkazilmaydi"
+                ],
+                explain: "Informatikada nazariy bilimlar bilan birga amaliy kod yozish yoki kompyuterda topshiriq bajarish darajasi (practical test) baholanadi.",
+                cat: "olympiad"
+            },
+            {
+                id: 40,
+                q: "Foydalanuvchi interfeysi deb nimaga aytiladi?",
+                answer: "Inson va kompyuter o'rtasidagi muloqot va buyruqlar almashish tizimi",
+                options: [
+                    "Inson va kompyuter o'rtasidagi muloqot va buyruqlar almashish tizimi",
+                    "Faqat kompyuter klaviaturasi",
+                    "Kompyuter operativ xotirasi datchigi",
+                    "Flesh-disk ichidagi fayllar"
+                ],
+                explain: "Foydalanuvchi interfeysi (UI) insonning kompyuter dasturlari bilan oson muloqot qilishi uchun yaratilgan grafik yoki matnli qobiqdir.",
+                cat: "software"
+            },
+            {
+                id: 41,
+                q: "Axborotning eng kichik o‘lchov birligi qaysi?",
+                answer: "Bit",
+                options: ["Bit", "Bayt", "Kilobayt", "Gigabayt"],
+                explain: "Bit (binary digit) faqat 0 yoki 1 qiymatini qabul qila oladigan eng mitti axborot birligidir.",
+                cat: "regulatory"
+            },
+            {
+                id: 42,
+                q: "Kompyuterlarning qanday tarmoqlari mavjud?",
+                answer: "Lokal (LAN), hududiy (MAN) va global (WAN) tarmoqlar",
+                options: [
+                    "Lokal (LAN), hududiy (MAN) va global (WAN) tarmoqlar",
+                    "Faqat simsiz Wi-Fi tarmoqlari",
+                    "Faqat simli elektr tarmoqlari",
+                    "Telefon liniyasi tarmoqlari xolos"
+                ],
+                explain: "Kompyuter tarmoqlari qamrab olgan hududiga ko'ra lokal (bir xonadagi), hududiy (shahardagi) hamda global (internet)ga bo'linadi.",
+                cat: "regulatory"
+            },
+            {
+                id: 43,
+                q: "B1 daraja bu – .......",
+                answer: "Mustaqil va erkin muloqot darajasi (Chesh standartiga ko'ra)",
+                options: ["Mustaqil va erkin muloqot darajasi (Chesh standartiga ko'ra)", "Boshlang'ich daraja", "Professional daraja", "Hakerlik darajasi"],
+                explain: "CEFR standartlariga ko'ra, B1 darajasi til yoki texnik sohada mustaqil, o'rta darajadagi muloqot va tushunishni bildiradi.",
+                cat: "regulatory"
+            },
+            {
+                id: 44,
+                q: "Baholash tizimi bu – davlat taʼlim standartining ............ ...........dir.",
+                answer: "Ajralmas tarkibiy qismidir",
+                options: ["Ajralmas tarkibiy qismidir", "Faqat birgina darslik modelidir", "Dars jadvali qoidasidir", "Pedagogik jazo turidir"],
+                explain: "Baholash tizimi ta'lim standartlariga ko'ra o'quvchining bilim darajasini aniqlovchi eng muhim tarkibiy qism hisoblanadi.",
+                cat: "olympiad"
+            },
+            {
+                id: 45,
+                q: "Mavjud bilim, koʻnikma va malakalarni kundalik faoliyatda qoʻllay olish qobiliyati nima?",
+                answer: "Kompetensiyaviylik",
+                options: ["Kompetensiyaviylik", "Faqat yodlab olish", "Tizimlilik tamoyili", "Dars ishlanmasi"],
+                explain: "O'quvchining bilganlarini real hayotda ishlata olish xislati — kompetensiya deb nomlanadi.",
+                cat: "competence"
+            },
+            {
+                id: 46,
+                q: "Umumiy oʻrta taʼlimning davlat taʼlim standartining tarkibiy qismlari nechta?",
+                answer: "Asosan 3 ta tarkibiy qism",
+                options: ["Asosan 3 ta tarkibiy qism", "5 ta qism", "10 ta qism", "2 ta qism"],
+                explain: "DTS tarkibiga o'quv reja, fan dasturlari va o'quvchilar tayyorgarligiga qo'yiladigan yakuniy talablar kiradi.",
+                cat: "regulatory"
+            },
+            {
+                id: 47,
+                q: "Davlat taʼlim standartining vazifalaridan biri, bu umumiy o‘rta taʼlim ....... ...........ga qoʻyiladigan talablarni belgilashdan iborat.",
+                answer: "Bitiruvchilari tayyorgarlik darajasiga",
+                options: ["Bitiruvchilari tayyorgarlik darajasiga", "O'qituvchining yoshiga", "Maktab binosiga", "Kompyuterlar narxiga"],
+                explain: "DTS maktabni tamomlayotgan har bir o'quvchi qanday minimal bilimlarga ega bo'lishi kerakligini kafolatlaydi.",
+                cat: "regulatory"
+            },
+            {
+                id: 48,
+                q: "U nazariy materialni mustaqil oʻzlashtirishga moʻljallangan boʻlib, uning gipermatnli tuzilishi individual taʼlim traektoriyasi bilan ishlash imkoniyatini beradi. Bu ........... dir.",
+                answer: "Elektron darslik (ED)",
+                options: ["Elektron darslik (ED)", "Sinf jurnali", "Oddiy qog'oz konspekt", "Maktab devoriy gazetasi"],
+                explain: "Elektron darslik tarkibidagi gipermatnli (havolali) tizim o'quvchiga mustaqil va qulay tezlikda ta'lim olish imkoniyatini beradi.",
+                cat: "software"
+            },
+            {
+                id: 49,
+                q: "Pedagogika tarixida, taʼlim-tarbiyani tashkil etishning asosiy shakli dars hisoblangan sinf-dars tizimini birinchi bor kim ishlab chiqqan?",
+                answer: "Yan Amos Komenskiy",
+                options: ["Yan Amos Komenskiy", "I.P.Pavlov", "Socrates", "John Locke"],
+                explain: "Buyuk chex pedagogi Yan Amos Komenskiy o'zining 'Buyuk didaktika' asarida klassik sinf-dars tizimini asoslab bergan.",
+                cat: "didactics"
+            },
+            {
+                id: 50,
+                q: "Dars, oʻz navbatida, bir butunlik boʻlib, asosan necha qismdan tashkil topgan?",
+                answer: "3 qism (tashkiliy, asosiy, yakuniy)",
+                options: ["3 qism (tashkiliy, asosiy, yakuniy)", "5 ta qism", "2 ta qism", "7 ta qism"],
+                explain: "Dars mantiqiy jihatdan: tashkiliy qism, yangi materialni o'rganish (yoki amaliyot) va yakuniy xulosalar chiqarish qismlaridan tuziladi.",
+                cat: "didactics"
+            },
+            {
+                id: 51,
+                q: "Rejali tashkillashtirilgan, aniq maqsadga qaratilgan va taʼlim beruvchi tomonidan boshqarib turiladigan taʼlim va tarbiya jarayoniga nima deyiladi?",
+                answer: "O'qitish jarayoni (Pedagogik jarayon)",
+                options: ["O'qitish jarayoni (Pedagogik jarayon)", "Faqat uy vazifasi", "O'yin faoliyati", "Imtihon jarayoni"],
+                explain: "Pedagog boshchiligida dars xonalarida o'tkaziladigan rejali harakatlar majmuasi o'qitish jarayoni hisoblanadi.",
+                cat: "didactics"
+            },
+            {
+                id: 52,
+                q: "........ mohiyati o‘quv jarayonini shunday tashkil etadiki, unda barcha o‘quvchilar bilish jarayoniga jalb qilingan bo‘lib, erkin fikrlash, tahlil qilish imkoniyatlariga ega boʻladilar.",
+                answer: "Interfaol ta'limning",
+                options: ["Interfaol ta'limning", "An'anaviy passiv ta'limning", "Faqat darsdan qochishning", "Diktant yozishning"],
+                explain: "Interfaol ta'lim o'quvchilarni faol muloqot, tahlil va mantiqiy fikrlash orqali dars jarayoniga 100% jalb qiladi.",
+                cat: "methods"
+            },
+            {
+                id: 53,
+                q: "Oʻquvchilarda belgilangan maqsadga erishish uchun taʼlim oluvchi va taʼlim beruvchining oʻzaro bogʻliq faoliyatini tashkil etishning usuliga nima deyiladi?",
+                answer: "O'qitish metodi (Ta'lim metodi)",
+                options: ["O'qitish metodi (Ta'lim metodi)", "Dars jadvali qoidasi", "Sinf partasi tartibi", "Baholash tizimi xolos"],
+                explain: "Maqsadli o'qitish uchun o'qituvchi va o'quvchining hamkorlikdagi muloqot va ish yo'li o'qitish metodi deb ataladi.",
+                cat: "methods"
+            },
+            {
+                id: 54,
+                q: "Talabalarning olgan nazariy bilim va amaliy koʻnikmalarini real vaziyatlarda qoʻllash orqali ularda malakalarni shakllantirishga qaratilgan faoliyat nomini aniqlang.",
+                answer: "Amaliyot (Praktika)",
+                options: ["Amaliyot (Praktika)", "Faqat kitob yodlash", "Ma'ruza eshitish", "Dam olish soati"],
+                explain: "Amaliyot darslarida yoki ishlab chiqarish praktikasida o'quvchi o'z nazariyasini amalda sinab ko'nikmalarni shakllantiradi.",
+                cat: "didactics"
+            },
+            {
+                id: 55,
+                q: "Qaysi maqsad turida tashqi dunyoga munosabat, jamiyatda o‘zini tutish meʼyorlariga rioya qilish, axloqiy va maʼnaviy tasavvurga egalik kabi sifatlar shakllantirilishi nazarda tutiladi?",
+                answer: "Tarbiyaviy maqsad",
+                options: ["Tarbiyaviy maqsad", "O'qitish maqsadi", "Rivojlantiruvchi maqsad", "Kasbiy maqsad"],
+                explain: "Ta'limdagi tarbiyaviy maqsad o'quvchida axloq, milliy qadriyatlar va ma'naviy dunyoqarashni shakllantirishga yo'naltirilgan.",
+                cat: "competence"
+            },
+            {
+                id: 56,
+                q: "Jumlani toʻldiring. Oʻqitishning ................ o‘quvchilar soni, o‘qitish joyi va boshqalar boʻyicha tasniflanadi.",
+                answer: "Tashkiliy shakllari",
+                options: ["Tashkiliy shakllari", "Metodlari", "Vositalari", "Baholash mezonlari"],
+                explain: "O'qitishning tashkiliy shakli dars qayerda va necha kishi ishtirokida o'tkazilishiga ko'ra farqlanadi.",
+                cat: "regulatory"
+            },
+            {
+                id: 57,
+                q: "Darsning tuzilishi bosqichlari soni koʻrsatilgan javobni toping.",
+                answer: "Asosan 5-6 ta tizimli bosqich",
+                options: ["Asosan 5-6 ta tizimli bosqich", "Faqat 2 ta bosqich", "10 ta bosqich", "Bosqichlarga bo'linmaydi"],
+                explain: "Klassik kombinatsiyalashgan darsda tashkil etish, uy ishini tekshirish, yangi mavzu, mustahkamlash, uyga vazifa va baholash bosqichlari bor.",
+                cat: "didactics"
+            },
+            {
+                id: 58,
+                q: "U taʼlimning asosiy shakli boʻlib, u ilmiy, tizimli, tushunarli, ongli va faol boʻlishi, bilimlar mustahkam oʻzlashtirilishi, o‘quvchi-talabalarning shaxsiy xususiyatlari eʼtiborga olingan holda tashkil etilishi shart. U nima?",
+                answer: "Dars",
+                options: ["Dars", "Konspekt", "To'garak", "Mustaqil mutolaa"],
+                explain: "Dars — pedagogik qonuniyatlar to'liq mujassamlangan va ta'limning markaziy asosi bo'lgan tashkiliy shakldir.",
+                cat: "didactics"
+            },
+            {
+                id: 59,
+                q: "Buyuk chex pedagogi Yan Amos Komenskiy yashab ijod etgan davrni aniqlang.",
+                answer: "XVII asr",
+                options: ["XVII asr", "XV asr", "XIX asr", "XX asr"],
+                explain: "Yan Amos Komenskiy (1592-1670) asosan XVII asrda ijod qilgan bo'lib, didaktikaning ko'plab qonunlarini yaratgan.",
+                cat: "didactics"
+            },
+            {
+                id: 60,
+                q: "Oʻqitish va o'rganish jarayonida egallanishi lozim boʻlgan bilim, koʻnikma hamda malakalar maʼnosi, hajmi va xarakterini anglatuvchi tushunchani toping.",
+                answer: "Ta'lim mazmuni",
+                options: ["Ta'lim mazmuni", "Ta'lim vositalari", "Ta'lim standarti", "Baholash metodikasi"],
+                explain: "Ta'lim mazmuni — darsliklar va dasturlar orqali o'quvchilarga yetkazib beriladigan ilmiy bilimlarning umumiy ko'rinishidir.",
+                cat: "regulatory"
+            },
+            {
+                id: 61,
+                q: "U o‘quv-amaliy mashgʻulot shakllaridan biri hisoblanib, asosan oliy oʻquv yurtlarida, ilmiy toʻgarak, anjumanlarda qoʻllaniladigan shuningdek, turli dialog asosida tashkil etiladigan va nazorat qilinadigan pedagogik jarayondir. U nima?",
+                answer: "Seminar mashg'uloti",
+                options: ["Seminar mashg'uloti", "Ma'ruza", "Mustaqil uy ishi", "Diktant topshirish"],
+                explain: "Seminar mashg'ulotida talabalar tayyorlagan ma'ruzalari bo'yicha savol-javob qiladilar, dialogik muloqot o'tkazadilar.",
+                cat: "didactics"
+            },
+            {
+                id: 62,
+                q: "Ta'lim masalalari, uning taraqqiyotini hal etishga qaratilgan, maxsus tashkil etilgan pedagog va tarbiyalanuvchilarning maqsadli oʻzaro munosabatlari nima deb ataladi?",
+                answer: "Pedagogik jarayon",
+                options: ["Pedagogik jarayon", "O'yin faoliyati", "Faqat yo'qlama qilish", "Tashkiliy soat"],
+                explain: "Pedagog va o'quvchining muloqoti asosida quriladigan va ma'lum ta'limiy maqsadga yo'naltirilgan tizim pedagogik jarayondir.",
+                cat: "didactics"
+            },
+            {
+                id: 63,
+                q: "Faoliyat natijasini oldindan fikran belgilash nima?",
+                answer: "Maqsad (Maqsadni rejalashtirish)",
+                options: ["Maqsad (Maqsadni rejalashtirish)", "Konspekt qilish", "Baholash", "Natijani tahlil qilish"],
+                explain: "Maqsad — bajarilishi kutilayotgan harakatlarning yakuniy ongli tasviri va kutilayotgan natijasidir.",
+                cat: "competence"
+            },
+            {
+                id: 64,
+                q: "Oʻqituvchidan dars o'tishda vaqt hamda masofa jihatdan tashkillanishini talab qiluvchi, materiallarni xatlar yoki audiovizual vositalar orqali mustaqil oʻrganishga asoslangan jarayon nima?",
+                answer: "Masofaviy ta'lim (Masofaviy o'qitish)",
+                options: ["Masofaviy ta'lim (Masofaviy o'qitish)", "Faqat an'anaviy sinf-dars", "Ekskursiya darsi", "Laboratoriya darsi"],
+                explain: "Masofaviy ta'limda talaba va o'qituvchi jismonan uzoqda bo'lib, axborotlarni onlayn yoki maktubiy tarzda almashib o'qiydilar.",
+                cat: "blended"
+            },
+            {
+                id: 65,
+                q: "Oʻrganish natijasida qoʻlga kiritilgan, biror harakatni nazoratsiz va avtomatik tarzda bajarish qobiliyatiga nima deyiladi?",
+                answer: "Malaka (Avtomatlashgan malaka)",
+                options: ["Malaka (Avtomatlashgan malaka)", "Ko'nikma", "Nazariy bilim", "Tizimli tamoyil"],
+                explain: "Avtomatlashgan malakada inson yozishni, koderlikni yoki mashina haydashni ongli ravishda o'ylamasdan tez va to'g'ri bajaradi.",
+                cat: "didactics"
+            },
+            {
+                id: 66,
+                q: "Qachondan boshlab Informatika fani o‘quv predmeti sifatida O‘zbekistonda o‘qitila boshlangan?",
+                answer: "1985-1986 o'quv yilidan boshlab",
+                options: ["1985-1986 o'quv yilidan boshlab", "1970-yildan", "1995-yildan", "2000-yildan boshlab"],
+                explain: "Sobiq Ittifoq maktablariga (shu jumladan O'zbekistonda ham) 1985-yil sentabrdan boshlab Informatika fani kiritilgan.",
+                cat: "methodology"
+            },
+            {
+                id: 67,
+                q: "Oʻquv faoliyatini baholash mezonlarini talqin etish yuzasidan ijodiy ishlarni amalga oshirgan va baholash tizimini tadqiq qilgan pedagogni aniqlang.",
+                answer: "V.P. Bespalko (yoki B. Blum)",
+                options: ["V.P. Bespalko (yoki B. Blum)", "Yan Amos Komenskiy", "Socrates", "John Locke"],
+                explain: "V.Bespalko va B.Blum kabi olimlar ta'limda maqsadlar taksonomiyasi va o'quvchilarni baholash tizimi ustida darslik islohotlarini qilganlar.",
+                cat: "olympiad"
+            },
+            {
+                id: 68,
+                q: "........ - talabani taʼlim tizimiga moslashtirishni emas, aksincha, uning xususiyatlarini inobatga olgan holda shaxs sifatida kamolotga yetishini nazarda tutadi.",
+                answer: "Shaxsga yo'naltirilgan ta'lim",
+                options: ["Shaxsga yo'naltirilgan ta'lim", "Avtoritar ta'lim", "Faqat darslik yodlash", "Baholash tizimi"],
+                explain: "Shaxsga yo'naltirilgan (Humanistic) ta'limda har bir bolaning iqtidori va xarakteri hisobga olingan holda unga individual yondashiladi.",
+                cat: "competence"
+            },
+            {
+                id: 69,
+                q: "Didaktika soʻzi maʼnosi nima?",
+                answer: "Yunoncha 'didaktikos' - o'qitish, o'rgatish, saboq berish",
+                options: [
+                    "Yunoncha 'didaktikos' - o'qitish, o'rgatish, saboq berish",
+                    "Lotincha - baholash, jazolash",
+                    "Lotincha - tarbiyalash san'ati",
+                    "Inglizcha - kompyuterda ishlash"
+                ],
+                explain: "Didaktika — o'qitish nazariyasi va qonuniyatlarini o'rganuvchi pedagogika fanining bo'limidir.",
+                cat: "didactics"
+            },
+            {
+                id: 70,
+                q: ".......... - grafik organayzeri asosida 'marraga kim birinchi chiqish' texnologiyasining sxematik tuzilishi boʻyicha o‘tilgan mavzularni mustahkamlash hisoblanadi.",
+                answer: "Zina (Pillapoya) organayzeri",
+                options: ["Zina (Pillapoya) organayzeri", "Venn diagrammasi", "T-jadvali", "Klaster"],
+                explain: "Zina organayzeri o'quvchilarda bosqichma-bosqich o'sib borish hamda marraga intilish mantiqini shakllantiradi.",
+                cat: "methods"
+            },
+            {
+                id: 71,
+                q: "VENN diagrammasi qanday organayzerlar qatoriga kiradi?",
+                answer: "Solishtirish va qiyoslash organayzerlari",
+                options: [
+                    "Solishtirish va qiyoslash organayzerlari",
+                    "Faqat raqamlarni hisoblash vositasi",
+                    "Faqat matnlarni o'chirish usuli",
+                    "Dars jadvali tartibi"
+                ],
+                explain: "Venn diagrammasi ikki yoki undan ortiq tushunchalarning umumiy va farqli jihatlarini vizual solishtirishga xizmat qiladi.",
+                cat: "methods"
+            },
+            {
+                id: 72,
+                q: "\"Klaster\" soʻzining maʼnosi qaysi javobda toʻgʻri ifodalangan?",
+                answer: "Inglizcha 'cluster' - bog'lam, guruh, tarmoqlanish",
+                options: [
+                    "Inglizcha 'cluster' - bog'lam, guruh, tarmoqlanish",
+                    "Lotincha - darslik kitobi",
+                    "Lotincha - qonunlar to'plami",
+                    "Nemischa - jazo turi"
+                ],
+                explain: "Klaster metodi markaziy bir tushunchadan unga bog'liq g'oyalarni tarmoqlantirib grafik guruhlash metodi hisoblanadi.",
+                cat: "methods"
+            },
+            {
+                id: 73,
+                q: "\"Kreativlik\" tushunchasining lugʻaviy maʼnosi nima?",
+                answer: "Lotincha 'creare' - yaratish, ijod qilish qobiliyati",
+                options: [
+                    "Lotincha 'creare' - yaratish, ijod qilish qobiliyati",
+                    "Inglizcha - faqat ko'chirish",
+                    "Lotincha - intizomga bo'ysunish",
+                    "Yunoncha - muloqot"
+                ],
+                explain: "Kreativlik — muammolarga kutilmagan, noodatiy va yangicha ijodiy yondashib, yangi g'oyalar yaratish xislatidir.",
+                cat: "competence"
+            },
+            {
+                id: 74,
+                q: "\"T\" sxema qanday organayzerlar qatoriga kiradi?",
+                answer: "Qarama-qarshi tomonlarni (Ha / Yo'q) solishtirish jadvali",
+                options: [
+                    "Qarama-qarshi tomonlarni (Ha / Yo'q) solishtirish jadvali",
+                    "Slaydlar ko'rinishi namunasi",
+                    "Faqat sonli hisoblar jadvali",
+                    "Vazifalar ro'yxati"
+                ],
+                explain: "T-sxemasida chap tomonga 'ijobiy/ha', o'ng tomonga esa 'salbiy/yo'q' kabi qarama-qarshi dalillar yozib solishtiriladi.",
+                cat: "methods"
+            },
+            {
+                id: 75,
+                q: "Agar grafik organayzerlarni o‘qituvchi tayyor (toʻldirilgan) holda qoʻllasa u qanday vazifani bajaradi?",
+                answer: "Ko'rgazmali (Illyustrativ) qurol vazifasini",
+                options: [
+                    "Ko'rgazmali (Illyustrativ) qurol vazifasini",
+                    "Mustaqil ijodiy ish vazifasini",
+                    "Baholash varag'i vazifasini",
+                    "Hech qanday vazifa bajarmaydi"
+                ],
+                explain: "Tayyor to'ldirilgan grafik tushuntirish vositasi faqat mavzuni vizual yetkazib beruvchi ko'rgazmali vosita bo'la oladi.",
+                cat: "methods"
+            },
+            {
+                id: 76,
+                q: "B.Blum taksonomiyasi necha bosqichdan iborat?",
+                answer: "6 bosqichdan (Bilish, Tushunish, Qo'llash, Tahlil, Sintez, Baholash)",
+                options: [
+                    "6 bosqichdan (Bilish, Tushunish, Qo'llash, Tahlil, Sintez, Baholash)",
+                    "3 bosqichdan",
+                    "5 bosqichdan",
+                    "10 bosqichdan"
+                ],
+                explain: "Blum taksonomiyasi bilish jarayonlarini eng oddiy darajadan (yodlash) eng yuqori baholash va ijod qilish darajasigacha bo'lgan 6 ta bosqichini o'rgatadi.",
+                cat: "olympiad"
+            },
+            {
+                id: 77,
+                q: "Jumlani toʻldiring. Bilim – .....lar tizimidan iborat.",
+                answer: "Ilmiy tushunchalar va dalillar",
+                options: ["Ilmiy tushunchalar va dalillar", "Faqat kompyuter o'yinlari", "Darslik kitoblari", "Baholash daftarchalari"],
+                explain: "O'quvchidagi bilimlar ilmiy tushunchalar, qonuniyatlar hamda tekshirilgan dalillar tizimidan iborat bo'ladi.",
+                cat: "didactics"
+            },
+            {
+                id: 78,
+                q: "Bolonya deklaratsiyasiga aʼzo davlatlari taʼlimi asoslanadigan tizim qaysi?",
+                answer: "Kredit-modul tizimi (ECTS)",
+                options: ["Kredit-modul tizimi (ECTS)", "An'anaviy baho baholash tizimi", "Faqat onlayn dars tizimi", "Sinf-dars tizimi xolos"],
+                explain: "Bolonya shartnomasiga ko'ra oliy ta'lim muassasalarida ta'lim kredit-modul tizimi (ECTS) qoidalari asosida tashkil etiladi.",
+                cat: "regulatory"
+            },
+            {
+                id: 79,
+                q: "Davlat taʼlim standarti, oʻquv dasturi talablari asosida belgilangan va tasdiqlangan nashr qanday oʻquv adabiyoti?",
+                answer: "Darslik (Textbook)",
+                options: ["Darslik (Textbook)", "Ijodiy daftar", "Ma'ruza konspekti", "Metodik risola"],
+                explain: "Darslik — vazirlik va davlat standartlari asosida maxsus nashr qilingan, sinfda o'qitilishi shart bo'lgan kitobdir.",
+                cat: "regulatory"
+            },
+            {
+                id: 80,
+                q: "Oʻquv jarayonida qoʻyilgan maqsadga erishshda yordam beruvchi chizma, jadval, grafiklar majmui nima deb ataladi?",
+                answer: "Grafik organayzerlar (Vizual vositalar)",
+                options: ["Grafik organayzerlar (Vizual vositalar)", "Faqat kompyuter qurilmalari", "Dars ishlanmalari", "Baholash jadvallari"],
+                explain: "Grafik organayzerlar (Klaster, Zina, T-sxema) ma'lumotlarni sodda va tushunarli tarzda guruhlashga yordam beruvchi chizmalardir.",
+                cat: "methods"
+            },
+            {
+                id: 81,
+                q: "Inglizcha soʻzdan olingan boʻlib, berilgan savollarga qisqa, aniq va loʻnda javob qaytarilishini taqozo etadigan metod qanday nomlanadi?",
+                answer: "Blits-so'rov (Blitz poll)",
+                options: ["Blits-so'rov (Blitz poll)", "Venn diagrammasi", "Felyeton", "Keys-stadi"],
+                explain: "Blits-so'rov (nemischada 'blitz' - chaqmoq) o'quvchilardan soniyalar ichida tezkor va qisqa javoblarni olish metodidir.",
+                cat: "methods"
+            },
+            {
+                id: 82,
+                q: "Interaktiv rejimda matn, grafika, video va multiplikatsiyani qoʻllash imkoniyatini beruvchi texnologiya qaysi?",
+                answer: "Multimedia texnologiyasi",
+                options: ["Multimedia texnologiyasi", "Matn muharriri dasturi", "Arxivator dasturi", "Domen tizimi"],
+                explain: "Multimedia — bir vaqtning o'zida matn, rasm, video va audio resurslarni birlashtirib darsni boyitadigan texnologiyadir.",
+                cat: "software"
+            },
+            {
+                id: 83,
+                q: "Internet tarmogʻi xizmatlarini taqdim etuvchi tashkilotni toping.",
+                answer: "Provayder (Internet Service Provider)",
+                options: ["Provayder (Internet Service Provider)", "Hakerlar guruhi", "Domen registratori", "Kompyuter laboratoriyasi"],
+                explain: "Internet provayderlar (M: Uzonline, Ucell) foydalanuvchilarga global tarmoqqa ulanish xizmatlarini taqdim etadilar.",
+                cat: "regulatory"
+            },
+            {
+                id: 84,
+                q: "Internetda taʼlim muassasalariga tegishli domenni koʻrsating.",
+                answer: ".edu (yoki .uzedu.uz)",
+                options: [".edu (yoki .uzedu.uz)", ".com", ".gov", ".org"],
+                explain: "Xalqaro domen tizimida '.edu' (education) faqat ta'lim va universitetlar saytlari uchun maxsus ajratilgan.",
+                cat: "regulatory"
+            },
+            {
+                id: 85,
+                q: "Muayyan amaliy harakatlarning tashkil etilishini imitatsiyalash (namuna ko'rsatish) imkoniyatini beradigan o‘yinlarga nima deyiladi?",
+                answer: "Imitatsion (Rolly) didaktik o'yinlar",
+                options: ["Imitatsion (Rolly) didaktik o'yinlar", "Faqat kompyuter o'yinlari", "Sport o'yinlari", "Matematik krossvordlar"],
+                explain: "Imitatsion o'yinlarda hayotiy vaziyatlar (masalan: bankda xizmat ko'rsatish) dars xonalarida sahnalashtirilib o'rganiladi.",
+                cat: "methods"
+            },
+            {
+                id: 86,
+                q: "Keyslarning (Case-study) ilk toʻplami qachon chop etilgan?",
+                answer: "1920-yillarda Harvard Biznes Maktabida",
+                options: ["1920-yillarda Harvard Biznes Maktabida", "XXI asr boshida", "1985-yilda Moskvada", "1950-yilda Londonda"],
+                explain: "Keys-stadi (muammoli vaziyatlarni tahlil qilish) metodi ilk bor 1920-yillarda Harvard universitetida qo'llanila boshlagan.",
+                cat: "methods"
+            },
+            {
+                id: 87,
+                q: "Ishtirokchilarda umumiy fikrlardan xususiy xulosalar chiqarish, taqqoslash orqali axborotni oʻzlashtirishga qaratilgan texnologiya qaysi?",
+                answer: "T-jadvali yoki Venn diagrammasi texnologiyasi",
+                options: [
+                    "T-jadvali yoki Venn diagrammasi texnologiyasi",
+                    "Faqat klaster metodi",
+                    "Darslik yodlash texnikasi",
+                    "Blits-so'rov usuli"
+                ],
+                explain: "Taqqoslash, qiyoslash va umumiy xulosalar yasashda T-jadvali yoki Venn diagrammasi eng samarali grafik organayzerlar hisoblanadi.",
+                cat: "methods"
+            },
+            {
+                id: 88,
+                q: "Kompetensiya soʻzining lugʻaviy maʼnosini toping.",
+                answer: "Lotincha 'competere' - mos kelish, munosib bo'lish, loyiqlik",
+                options: [
+                    "Lotincha 'competere' - mos kelish, munosib bo'lish, loyiqlik",
+                    "Inglizcha - faqat hisoblash",
+                    "Lotincha - dars o'tish darsligi",
+                    "Yunoncha - muloqot qilish"
+                ],
+                explain: "Kompetensiya o'quvchining muayyan sohadagi topshiriqlarni bajara olishga munosibligini, bilim darajasi mosligini anglatadi.",
+                cat: "competence"
+            },
+            {
+                id: 89,
+                q: "Oʻquvchilarning bilimini nazorat qilish va baholashda 'imtihon', 'kollekvium', 'diktant' kabi atamalarni fanga kiritgan olim kim?",
+                answer: "Yan Amos Komenskiy",
+                options: ["Yan Amos Komenskiy", "I.P.Pavlov", "B.Blum", "John Locke"],
+                explain: "Sinf-dars tizimini asoslagan Komenskiy baholash va tekshirishning ushbu standart dars shakllarini fanga kiritgan.",
+                cat: "olympiad"
+            },
+            {
+                id: 90,
+                q: "Informatika darslarida Pedagogik Dasturiy Vositalardan (PDV) qanday foydalaniladi?",
+                answer: "Yangi darsni tushuntirish, amaliy ko'nikmalarni sinash va baholashda",
+                options: [
+                    "Yangi darsni tushuntirish, amaliy ko'nikmalarni sinash va baholashda",
+                    "Faqat dars payti o'quvchilarga o'yinlar qo'yib berishda",
+                    "Dars jadvalini kompyuterda chop etishda",
+                    "Sinf xonasi tozaligini nazorat qilishda"
+                ],
+                explain: "PDV (o'rgatuvchi, nazorat qiluvchi va simulyator dasturlar) darsning barcha bosqichlarida kompyuter orqali faol qo'llaniladi.",
+                cat: "software"
+            },
+            {
+                id: 91,
+                q: "Virtual laboratoriyalar qanday imkoniyat beradi?",
+                answer: "Amaliy va laboratoriya darslarini real qurilmalarsiz kompyuterda sinab ko'rish",
+                options: [
+                    "Amaliy va laboratoriya darslarini real qurilmalarsiz kompyuterda sinab ko'rish",
+                    "Faqat internetda ijtimoiy tarmoqlardan foydalanish",
+                    "O'quvchilar reytingini dars jadvaliga chiqarish",
+                    "O'qituvchining konspektini avtomatik yozish"
+                ],
+                explain: "Virtual lablar (M: fizika yoki koderlik laboratoriyalari) og'ir yoki xavfli uskunalar talab etmaydigan simulyatsiya darslaridir.",
+                cat: "software"
+            },
+            {
+                id: 92,
+                q: "Informatika orqali qanday universal koʻnikmalar rivojlanadi?",
+                answer: "Algoritmik va mantiqiy fikrlash, muammolarni tizimli yechish",
+                options: [
+                    "Algoritmik va mantiqiy fikrlash, muammolarni tizimli yechish",
+                    "Faqat jismoniy chaqqonlik",
+                    "Faqat chiroyli rasm chizish",
+                    "Musiqa asboblarini chalish"
+                ],
+                explain: "Informatika o'quvchida algoritm tuzish, bosqichma-bosqich rejalashtirish va tizimli mantiqni shakllantiradi.",
+                cat: "competence"
+            },
+            {
+                id: 93,
+                q: "Informatika fanining amaliy maqsadi nima?",
+                answer: "O'quvchilarda kompyuter va AKT texnologiyalaridan amalda samarali foydalanishni shakllantirish",
+                options: [
+                    "O'quvchilarda kompyuter va AKT texnologiyalaridan amalda samarali foydalanishni shakllantirish",
+                    "Faqat kompyuter narxlarini o'rganish",
+                    "Faqat mikrosxemalarni payvandlashni o'rganish",
+                    "Internet tarmog'idagi barcha o'yinlarni tugatish"
+                ],
+                explain: "Amaliy maqsad — o'quvchining kompyuterda matn yozishi, hisoblashi yoki dasturlay olishini amalda ta'minlashdir.",
+                cat: "competence"
+            },
+            {
+                id: 94,
+                q: "Raqamli kompetensiya nima?",
+                answer: "Raqamli texnologiyalardan kundalik va kasbiy ishlarda xavfsiz va to'g'ri foydalana olish",
+                options: [
+                    "Raqamli texnologiyalardan kundalik va kasbiy ishlarda xavfsiz va to'g'ri foydalana olish",
+                    "Faqat kompyuter klaviaturasidagi harflarni tez yozish",
+                    "Kompyuter qurilmalarini bo'laklarga ajrata olish",
+                    "Telefon raqamlarini yodda saqlash"
+                ],
+                explain: "Raqamli kompetensiya (Digital Literacy) — zamonaviy dunyoda axborotlar bilan to'g'ri ishlash, tarmoq xavfsizligi va raqamli madaniyatdir.",
+                cat: "competence"
+            },
+            {
+                id: 95,
+                q: "Informatika darslarida axloqiy tarbiya qanday amalga oshiriladi?",
+                answer: "Kiber-etika, mualliflik huquqini hurmat qilish va xavfsiz muloqot madaniyatini o'rgatish orqali",
+                options: [
+                    "Kiber-etika, mualliflik huquqini hurmat qilish va xavfsiz muloqot madaniyatini o'rgatish orqali",
+                    "Faqat sinfda jim o'tirishni talab qilish bilan",
+                    "Kompyuterlarni o'chirib qo'yish bilan",
+                    "Darsda kitob o'qitish bilan"
+                ],
+                explain: "Tarmoq madaniyati, plagiatga yo'l qo'ymaslik va kiber-bullyingga qarshi kurashish axloqiy tarbiyaning asosi.",
+                cat: "competence"
+            },
+            {
+                id: 96,
+                q: "Raqamli fuqarolik nima?",
+                answer: "Internet hamjamiyatida huquqiy va axloqiy me'yorlarga rioya qilgan holda ishtirok etish",
+                options: [
+                    "Internet hamjamiyatida huquqiy va axloqiy me'yorlarga rioya qilgan holda ishtirok etish",
+                    "Onlayn pasport olish tizimi",
+                    "Kompyuter o'yinlarida fuqarolikka ega bo'lish",
+                    "Faqat davlat saytlaridan ro'yxatdan o'tish"
+                ],
+                explain: "Raqamli fuqaro (Digital Citizen) internetda o'z huquqlari va majburiyatlarini tushunadigan madaniyatli shaxsdir.",
+                cat: "competence"
+            },
+            {
+                id: 97,
+                q: "Ma’ruza qanday dars turi hisoblanadi?",
+                answer: "O'qituvchi tomonidan yangi mavzuni og'zaki, tizimli va mantiqiy tushuntirib berish darsi",
+                options: [
+                    "O'qituvchi tomonidan yangi mavzuni og'zaki, tizimli va mantiqiy tushuntirib berish darsi",
+                    "Faqat nazorat ishi darsi",
+                    "Slaydlar ko'rgazmasi darsi",
+                    "O'quvchilar suhbati darsi"
+                ],
+                explain: "Ma'ruza darsida o'qituvchi faol bo'lib, yangi ilmiy materialni o'quvchilarga mantiqiy va izchil yetkazadi.",
+                cat: "didactics"
+            },
+            {
+                id: 98,
+                q: "Amaliy va laboratoriya mashgʻuloti nima?",
+                answer: "Nazariy bilimlarni mustahkamlash maqsadida kompyuterda topshiriqlar bajarish",
+                options: [
+                    "Nazariy bilimlarni mustahkamlash maqsadida kompyuterda topshiriqlar bajarish",
+                    "Faqat o'qituvchi ma'ruzasini ko'chirib yozish",
+                    "Maktab hovlisini tozalash mashg'uloti",
+                    "Dars jadvalini tahlil qilish"
+                ],
+                explain: "Amaliy darslarda o'quvchilar mustaqil ravishda koderlik, jadvallar bilan ishlash kabi harakatlarni kompyuterda bajaradilar.",
+                cat: "didactics"
+            },
+            {
+                id: 99,
+                q: "Informatika fanidan olimpiadalar jami necha bosqichda oʻtkaziladi?",
+                answer: "4 bosqichda o'tkaziladi",
+                options: ["4 bosqichda o'tkaziladi", "2 bosqichda", "5 bosqichda", "3 bosqichda"],
+                explain: "Olimpiadalar maktab, tuman, viloyat va respublika (to'rtinchi) bosqichlaridan iborat bo'ladi.",
+                cat: "olympiad"
+            },
+            {
+                id: 100,
+                q: "Uning o'quvchilarga oʻrganilayotgan masalani yaxlit, sintezlangan idrok etishga erishishga imkon beradi. Bu qanday dars?",
+                answer: "Integratsiyalashgan (Uyg'unlashgan) dars",
+                options: [
+                    "Integratsiyalashgan (Uyg'unlashgan) dars",
+                    "Faqat nazorat darsi",
+                    "Konsultatsiya darsi",
+                    "Mustaqil dars"
+                ],
+                explain: "Integratsiyalashgan darsda ikki yoki undan ortiq fanlar (masalan, informatika va matematika) mantiqan birlashtirib o'tiladi.",
+                cat: "didactics"
+            }
+        ];
+
+        // Global Application States
+        let shuffledQuestions = [];
+        let activeQuestions = [];
+        let currentIndex = 0;
+        let quizMode = 'study'; // 'study' or 'exam'
+        let examTimerInterval = null;
+        let examSecondsLeft = 3600; // 60 minutes
+        let examAnswers = {}; // { qId: selectedOption }
+        let studyResults = {}; // { qId: { correct: boolean, selectedOption: string } }
+        let bookmarkedQuestionIds = [];
+
+        // Safe LocalStorage Retrieval to prevent crashes in sandboxed iframes
+        try {
+            bookmarkedQuestionIds = JSON.parse(localStorage.getItem('bookmarked_method_questions') || '[]');
+        } catch (e) {
+            bookmarkedQuestionIds = [];
+        }
+
+        // Shuffling array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Initialize Options to be random per question (Option Scrambling)
+        function initializeQuestions() {
+            shuffledQuestions = rawQuestionsData.map(q => {
+                const shuffledOpts = shuffleArray([...q.options]);
+                return {
+                    ...q,
+                    options: shuffledOpts
+                };
+            });
+        }
+
+        function loadStateFromLocalStorage() {
+            try {
+                const savedStudyResults = localStorage.getItem('method_study_results');
+                if (savedStudyResults) {
+                    studyResults = JSON.parse(savedStudyResults);
+                }
+            } catch (e) {
+                studyResults = {};
+            }
+        }
+
+        function saveStateToLocalStorage() {
+            try {
+                localStorage.setItem('method_study_results', JSON.stringify(studyResults));
+                localStorage.setItem('bookmarked_method_questions', JSON.stringify(bookmarkedQuestionIds));
+            } catch (e) {
+                // Ignore silently if storage is blocked
+            }
+        }
+
+        // Shuffle current set
+        function shuffleCurrentQuestions() {
+            shuffledQuestions = shuffleArray(shuffledQuestions);
+            shuffledQuestions.forEach(q => {
+                q.options = shuffleArray([...q.options]);
+            });
+            currentIndex = 0;
+            filterQuestions();
+        }
+
+        // Mode Switching
+        function changeQuizMode(mode) {
+            quizMode = mode;
+            const studyBtn = document.getElementById('modeStudyBtn');
+            const examBtn = document.getElementById('modeExamBtn');
+            const timerContainer = document.getElementById('examTimerContainer');
+            const examSubmitBtn = document.getElementById('examSubmitBtn');
+
+            if (mode === 'study') {
+                studyBtn.className = "flex-1 py-2 text-xs font-black rounded-xl transition-all duration-300 bg-white dark:bg-slate-800 text-slate-800 dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.05)]";
+                examBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl transition-all duration-300 text-slate-500 dark:text-slate-400";
+                timerContainer.classList.add('hidden');
+                examSubmitBtn.classList.add('hidden');
+                clearInterval(examTimerInterval);
+                updateAIAvatarExpression('smile');
+                speakAIVatar("O'rganish rejimiga o'tdik! Bu yerda har bir metodika qoidasini batafsil izohlari bilan o'rganishingiz mumkin.");
+            } else {
+                examBtn.className = "flex-1 py-2 text-xs font-black rounded-xl transition-all duration-300 bg-white dark:bg-slate-800 text-slate-800 dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.05)]";
+                studyBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl transition-all duration-300 text-slate-500 dark:text-slate-400";
+                timerContainer.classList.remove('hidden');
+                examSubmitBtn.classList.remove('hidden');
+                startExamTimer();
+                updateAIAvatarExpression('focus');
+                speakAIVatar("Diqqat! Imtihon rejimi ishga tushdi. 60 daqiqalik nazorat boshlandi, omad!");
+            }
+            renderQuiz();
+            renderQuestionMap();
+        }
+
+        function startExamTimer() {
+            clearInterval(examTimerInterval);
+            examSecondsLeft = 3600; // Reset
+            updateTimerDisplay();
+            examTimerInterval = setInterval(() => {
+                examSecondsLeft--;
+                updateTimerDisplay();
+                if (examSecondsLeft <= 0) {
+                    clearInterval(examTimerInterval);
+                    finishExam(true);
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(examSecondsLeft / 60);
+            const seconds = examSecondsLeft % 60;
+            document.getElementById('examTimerText').innerText = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Search & Filtering
+        function filterQuestions() {
+            const filterVal = document.getElementById('categoryFilter').value;
+            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+
+            activeQuestions = shuffledQuestions.filter(q => {
+                const matchesSearch = q.q.toLowerCase().includes(searchVal) || q.answer.toLowerCase().includes(searchVal);
+                
+                if (filterVal === 'all') {
+                    return matchesSearch;
+                } else if (filterVal === 'bookmarked') {
+                    return bookmarkedQuestionIds.includes(q.id) && matchesSearch;
+                } else {
+                    return q.cat === filterVal && matchesSearch;
+                }
+            });
+
+            document.getElementById('filteredCountBadge').innerText = `${activeQuestions.length} / ${rawQuestionsData.length}`;
+            currentIndex = 0;
+            renderQuiz();
+            renderQuestionMap();
+            updateStats();
+        }
+
+        // Render Test Details
+        function renderQuiz() {
+            const container = document.getElementById('optionsListContainer');
+            const explanationCard = document.getElementById('explanationCard');
+            
+            if (activeQuestions.length === 0) {
+                document.getElementById('questionTextDisplay').innerText = "Belgilangan filtrlar bo'yicha metodika savoli topilmadi. Qidiruv so'zini tekshiring.";
+                document.getElementById('questionIndexBadge').innerText = "SAVOL 0";
+                document.getElementById('questionSourceBadge').innerText = "";
+                container.innerHTML = `
+                    <div class="p-6 text-center text-slate-400 dark:text-slate-500 font-bold border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl bg-white/10">
+                        Natija topilmadi.
+                    </div>`;
+                explanationCard.style.display = 'none';
+                return;
+            }
+
+            const current = activeQuestions[currentIndex];
+            
+            // Set Badge Texts
+            document.getElementById('questionIndexBadge').innerText = `SAVOL ${current.id} (${currentIndex + 1} / ${activeQuestions.length})`;
+            
+            let catName = "Didaktika va metodlar";
+            if (current.cat === 'methods') catName = "Interfaol metodlar";
+            if (current.cat === 'regulatory') catName = "DTS & Me'yoriy hujjatlar";
+            if (current.cat === 'software') catName = "Pedagogik dasturiy vositalar";
+            if (current.cat === 'competence') catName = "Raqamli kompetensiyalar";
+            if (current.cat === 'olympiad') catName = "Olimpiada & Baholash";
+            document.getElementById('questionSourceBadge').innerText = catName;
+
+            document.getElementById('questionTextDisplay').innerText = current.q;
+
+            // Bookmark status
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            if (bookmarkedQuestionIds.includes(current.id)) {
+                bookmarkBtn.className = "w-9 h-9 flex items-center justify-center rounded-xl hover:bg-white/50 dark:hover:bg-slate-800/40 text-amber-500 transition-all active:scale-90";
+            } else {
+                bookmarkBtn.className = "w-9 h-9 flex items-center justify-center rounded-xl hover:bg-white/50 dark:hover:bg-slate-800/40 text-slate-400 dark:text-slate-500 transition-all active:scale-90";
+            }
+
+            container.innerHTML = "";
+            explanationCard.style.display = 'none';
+
+            const studyAns = studyResults[current.id];
+            const examAns = examAnswers[current.id];
+
+            // Shuffled options renders
+            current.options.forEach((opt, idx) => {
+                let charLabel = 'A';
+                if (idx === 1) charLabel = 'B';
+                if (idx === 2) charLabel = 'D';
+                if (idx === 3) charLabel = 'E';
+                
+                const button = document.createElement('button');
+                button.className = "w-full p-4 rounded-2xl text-left border text-xs sm:text-sm font-bold transition-all flex items-center justify-between gap-3 active:scale-[0.99] glass-card hover:border-slate-400 dark:hover:border-slate-600 text-slate-800 dark:text-slate-200";
+                
+                button.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-xl bg-slate-200/50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center font-extrabold shrink-0 shadow-sm text-xs border border-white/20">
+                            ${charLabel}
+                        </span>
+                        <span class="leading-snug font-semibold">${opt}</span>
+                    </div>
+                `;
+
+                if (quizMode === 'study') {
+                    if (studyAns) {
+                        button.disabled = true;
+                        if (opt === current.answer) {
+                            button.className = "w-full p-4 rounded-2xl text-left border text-xs sm:text-sm font-bold transition-all flex items-center justify-between gap-3 active:scale-[0.99] border-emerald-500 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300";
+                            button.innerHTML += `<span class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] shadow"><i class="fa-solid fa-check"></i></span>`;
+                        } else if (opt === studyAns.selectedOption) {
+                            button.className = "w-full p-4 rounded-2xl text-left border text-xs sm:text-sm font-bold transition-all flex items-center justify-between gap-3 active:scale-[0.99] border-rose-500 bg-rose-500/10 text-rose-800 dark:text-rose-300";
+                            button.innerHTML += `<span class="w-5 h-5 rounded-full bg-rose-500 text-white flex items-center justify-center text-[10px] shadow"><i class="fa-solid fa-xmark"></i></span>`;
+                        } else {
+                            button.className = "w-full p-4 rounded-2xl text-left border text-xs sm:text-sm font-bold transition-all flex items-center justify-between gap-3 active:scale-[0.99] border-slate-200/20 dark:border-slate-800/20 opacity-50";
+                        }
+                    } else {
+                        button.onclick = () => selectStudyOption(current.id, opt);
+                    }
+                } else {
+                    // Exam view styles
+                    if (examAns === opt) {
+                        button.className = "w-full p-4 rounded-2xl text-left border text-xs sm:text-sm font-bold transition-all flex items-center justify-between gap-3 active:scale-[0.99] border-amber-500 bg-amber-500/10 text-amber-800 dark:text-amber-300 shadow-sm";
+                        button.innerHTML += `<span class="w-5 h-5 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] shadow"><i class="fa-solid fa-check-double"></i></span>`;
+                    }
+                    button.onclick = () => selectExamOption(current.id, opt);
+                }
+
+                container.appendChild(button);
+            });
+
+            if (quizMode === 'study' && studyAns) {
+                explanationCard.style.display = 'flex';
+                document.getElementById('explanationTextDisplay').innerText = current.explain;
+            }
+        }
+
+        // Render Map
+        function renderQuestionMap() {
+            const container = document.getElementById('questionsMapContainer');
+            container.innerHTML = "";
+
+            activeQuestions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "h-9 rounded-xl font-black text-xs transition-all flex items-center justify-center active:scale-90 shadow-sm";
+                btn.innerText = q.id;
+
+                const isCurrent = idx === currentIndex;
+                const studyAns = studyResults[q.id];
+                const examAns = examAnswers[q.id];
+
+                if (isCurrent) {
+                    btn.classList.add('ring-2', 'ring-indigo-400', 'scale-105', 'z-10');
+                }
+
+                if (quizMode === 'study') {
+                    if (studyAns) {
+                        if (studyAns.correct) {
+                            btn.classList.add('bg-emerald-500', 'text-white', 'hover:bg-emerald-600');
+                        } else {
+                            btn.classList.add('bg-rose-500', 'text-white', 'hover:bg-rose-600');
+                        }
+                    } else {
+                        btn.classList.add('bg-white/45', 'dark:bg-slate-800/30', 'text-slate-700', 'dark:text-slate-300', 'hover:bg-white/70', 'dark:hover:bg-slate-700/60');
+                    }
+                } else {
+                    if (examAns) {
+                        btn.classList.add('bg-amber-500', 'text-white', 'hover:bg-amber-600');
+                    } else {
+                        btn.classList.add('bg-white/45', 'dark:bg-slate-800/30', 'text-slate-700', 'dark:text-slate-300', 'hover:bg-white/70', 'dark:hover:bg-slate-700/60');
+                    }
+                }
+
+                btn.onclick = () => {
+                    currentIndex = idx;
+                    renderQuiz();
+                    renderQuestionMap();
+                }
+
+                container.appendChild(btn);
+            });
+        }
+
+        // Selection Action Handler
+        function selectStudyOption(qId, selectedOpt) {
+            const q = rawQuestionsData.find(item => item.id === qId);
+            const isCorrect = q.answer === selectedOpt;
+            studyResults[qId] = {
+                correct: isCorrect,
+                selectedOption: selectedOpt
+            };
+
+            playQuizSound(isCorrect ? 'correct' : 'wrong');
+            
+            if (isCorrect) {
+                updateAIAvatarExpression('happy');
+                speakAIVatar("Ajoyib! To'g'ri topsangiz. Didaktik nuqtayi nazardan juda to'g'ri fikr!");
+            } else {
+                updateAIAvatarExpression('sad');
+                speakAIVatar("Afsus, bu javob noto'g'ri. Tushuntirish darchasidagi qoidani qaytadan o'qib chiqing.");
+            }
+
+            saveStateToLocalStorage();
+            updateStats();
+            renderQuiz();
+            renderQuestionMap();
+        }
+
+        // Exam Mode Option Selector
+        function selectExamOption(qId, selectedOpt) {
+            examAnswers[qId] = selectedOpt;
+            updateStats();
+            renderQuiz();
+            renderQuestionMap();
+        }
+
+        // Metrics calculations
+        function updateStats() {
+            let correct = 0;
+            let wrong = 0;
+            let totalAnswered = 0;
+
+            if (quizMode === 'study') {
+                rawQuestionsData.forEach(q => {
+                    if (studyResults[q.id]) {
+                        totalAnswered++;
+                        if (studyResults[q.id].correct) correct++;
+                        else wrong++;
+                    }
+                });
+            } else {
+                rawQuestionsData.forEach(q => {
+                    if (examAnswers[q.id]) {
+                        totalAnswered++;
+                        if (examAnswers[q.id] === q.answer) correct++;
+                        else wrong++;
+                    }
+                });
+            }
+
+            document.getElementById('correctCountText').innerText = correct;
+            document.getElementById('wrongCountText').innerText = wrong;
+            document.getElementById('answeredRatioText').innerText = `Yechildi: ${totalAnswered} / ${rawQuestionsData.length}`;
+            
+            const percent = totalAnswered > 0 ? Math.round((totalAnswered / rawQuestionsData.length) * 100) : 0;
+            document.getElementById('progressBarPercentage').innerText = `${percent}%`;
+            document.getElementById('progressBarFill').style.width = `${percent}%`;
+
+            document.getElementById('bookmarkCountText').innerText = bookmarkedQuestionIds.length;
+        }
+
+        // Prev & Next navigation
+        function navigateToQuestion(direction) {
+            if (activeQuestions.length === 0) return;
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = activeQuestions.length - 1;
+            if (currentIndex >= activeQuestions.length) currentIndex = 0;
+            renderQuiz();
+            renderQuestionMap();
+        }
+
+        // Toggle bookmarks (Yulduzcha)
+        function toggleBookmarkActiveQuestion() {
+            if (activeQuestions.length === 0) return;
+            const current = activeQuestions[currentIndex];
+            const idxInBookmarks = bookmarkedQuestionIds.indexOf(current.id);
+
+            if (idxInBookmarks > -1) {
+                bookmarkedQuestionIds.splice(idxInBookmarks, 1);
+            } else {
+                bookmarkedQuestionIds.push(current.id);
+            }
+
+            saveStateToLocalStorage();
+            renderQuiz();
+            updateStats();
+        }
+
+        // Clears current state (Tozalash)
+        function resetQuizState() {
+            const confirmReset = confirm("Barcha belgilangan test natijalarini tozalab yuborishni xohlaysizmi?");
+            if (confirmReset) {
+                studyResults = {};
+                examAnswers = {};
+                try {
+                    localStorage.removeItem('method_study_results');
+                } catch (e) {}
+                updateStats();
+                renderQuiz();
+                renderQuestionMap();
+                speakAIVatar("Laboratoriya tozalandi! Mashg'ulotlarni boshidan boshlashingiz mumkin.");
+            }
+        }
+
+        // Finish exam prompt inside modal dialog
+        function finishExamPrompt() {
+            const answeredCount = Object.keys(examAnswers).length;
+            const confirmed = confirm(`Jami 100 ta savoldan ${answeredCount} tasiga javob berdingiz. Imtihonni topshirishni tasdiqlaysizmi?`);
+            if (confirmed) {
+                finishExam();
+            }
+        }
+
+        function finishExam() {
+            clearInterval(examTimerInterval);
+            
+            let correct = 0;
+            let wrong = 0;
+            rawQuestionsData.forEach(q => {
+                const ans = examAnswers[q.id];
+                if (ans) {
+                    if (ans === q.answer) correct++;
+                    else wrong++;
+                }
+            });
+
+            const total = rawQuestionsData.length;
+            const percent = Math.round((correct / total) * 100);
+
+            // Populate Modal values
+            document.getElementById('modalTotalAnswered').innerText = Object.keys(examAnswers).length;
+            document.getElementById('modalCorrect').innerText = correct;
+            document.getElementById('modalIncorrect').innerText = wrong;
+            document.getElementById('modalPercentText').innerText = `To'g'ri ko'rsatkich: ${percent}%`;
+            document.getElementById('modalPercentBar').style.width = `${percent}%`;
+
+            let gradingText = "";
+            if (percent >= 86) {
+                gradingText = "A'LO! Informatika o'qitish metodikasidan mukammal bilimlarga egasiz. Barcha innovatsion ta'lim modellarini professional darajada bilishingiz tasdiqlandi!";
+                updateAIAvatarExpression('happy');
+            } else if (percent >= 71) {
+                gradingText = "YAXSHI. Savollarning katta qismiga o'rinli javob berdingiz. DTS me'yorlari va o'qitish metodlarini yaxshi o'zlashtirgansiz.";
+                updateAIAvatarExpression('smile');
+            } else if (percent >= 55) {
+                gradingText = "QONIQLARLI. O'tish chegarasidan o'tdingiz. Ammo Blum taksonomiyasi va PDV vositalarini takrorlash foydadan xoli bo'lmaydi.";
+                updateAIAvatarExpression('focus');
+            } else {
+                gradingText = "QONIQARSIZ. Afsuski, yetarli natija qayd etilmadi. O'rganish rejimiga qaytib, har bir pedagogik savol tushuntirishi ustida qayta ishlang.";
+                updateAIAvatarExpression('sad');
+            }
+            document.getElementById('modalGradeText').innerText = gradingText;
+
+            // Show results modal
+            document.getElementById('examResultModal').classList.remove('hidden');
+        }
+
+        function reviewExamAnswers() {
+            rawQuestionsData.forEach(q => {
+                const ans = examAnswers[q.id];
+                if (ans) {
+                    studyResults[q.id] = {
+                        correct: ans === q.answer,
+                        selectedOption: ans
+                    };
+                }
+            });
+            saveStateToLocalStorage();
+            document.getElementById('examResultModal').classList.add('hidden');
+            changeQuizMode('study');
+        }
+
+        function closeModalAndReset() {
+            document.getElementById('examResultModal').classList.add('hidden');
+            studyResults = {};
+            examAnswers = {};
+            try {
+                localStorage.removeItem('method_study_results');
+            } catch (e) {}
+            changeQuizMode('study');
+        }
+
+        // Theme management - Default to light mode as requested
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                try {
+                    localStorage.setItem('theme', 'light');
+                } catch (e) {}
+            } else {
+                html.classList.add('dark');
+                try {
+                    localStorage.setItem('theme', 'dark');
+                } catch (e) {}
+            }
+            updateThemeToggleButton();
+        }
+
+        function updateThemeToggleButton() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            if (html.classList.contains('dark')) {
+                icon.className = "fa-solid fa-sun text-amber-400";
+            } else {
+                icon.className = "fa-solid fa-moon text-slate-700";
+            }
+        }
+
+        // Web Audio API Synthesizer (Tovush effektlari)
+        let audioCtx = null;
+        function playQuizSound(type) {
+            try {
+                if (!audioCtx) {
+                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                    if (AudioContextClass) {
+                        audioCtx = new AudioContextClass();
+                    }
+                }
+                if (!audioCtx) return;
+
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.08); // E5
+                    osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.16); // G5
+                    gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.005, audioCtx.currentTime + 0.35);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.35);
+                } else if (type === 'wrong') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(196.00, audioCtx.currentTime); // G3
+                    osc.frequency.setValueAtTime(146.83, audioCtx.currentTime + 0.12); // D3
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.005, audioCtx.currentTime + 0.45);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.45);
+                }
+            } catch (err) {
+                // Ignore silently
+            }
+        }
+
+        // AI Assistant expressions
+        function updateAIAvatarExpression(mood) {
+            const mouth = document.getElementById('robotMouth');
+            const leftEye = document.getElementById('leftEye');
+            const rightEye = document.getElementById('rightEye');
+            
+            if (mood === 'happy') {
+                mouth.setAttribute('d', 'M 35 55 Q 50 70 65 55'); // Big Smile
+                leftEye.setAttribute('cy', '46');
+                rightEye.setAttribute('cy', '46');
+            } else if (mood === 'sad') {
+                mouth.setAttribute('d', 'M 35 65 Q 50 50 65 65'); // Sad mouth
+                leftEye.setAttribute('cy', '50');
+                rightEye.setAttribute('cy', '50');
+            } else if (mood === 'focus') {
+                mouth.setAttribute('d', 'M 40 60 L 60 60'); // Straight line mouth
+                leftEye.setAttribute('cy', '48');
+                rightEye.setAttribute('cy', '48');
+            } else {
+                mouth.setAttribute('d', 'M 40 58 Q 50 64 60 58'); // Standard soft smile
+                leftEye.setAttribute('cy', '48');
+                rightEye.setAttribute('cy', '48');
+            }
+        }
+
+        function speakAIVatar(text) {
+            document.getElementById('aiSpeechText').innerText = `"${text}"`;
+        }
+
+        // Interactive Whiteboard logic
+        let canvas = null;
+        let ctx = null;
+        let isDrawing = false;
+        let drawColor = '#6366f1';
+        let brushSize = 3;
+
+        function initScratchpad() {
+            canvas = document.getElementById('scratchpadCanvas');
+            ctx = canvas.getContext('2d');
+            
+            // Set scale size
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Desktop events
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            // Mobile events
+            canvas.addEventListener('touchstart', startDrawingMobile, { passive: false });
+            canvas.addEventListener('touchmove', drawMobile, { passive: false });
+            canvas.addEventListener('touchend', stopDrawing);
+
+            document.getElementById('brushSizeSlider').addEventListener('input', function(e) {
+                brushSize = e.target.value;
+            });
+        }
+
+        function resizeCanvas() {
+            const rect = canvas.parentNode.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            clearScratchpadSilently();
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            document.getElementById('scratchpadHint').classList.add('hidden');
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            ctx.lineWidth = brushSize;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = drawColor;
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+        }
+
+        function startDrawingMobile(e) {
+            e.preventDefault();
+            isDrawing = true;
+            document.getElementById('scratchpadHint').classList.add('hidden');
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            ctx.beginPath();
+            ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+        }
+
+        function drawMobile(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            ctx.lineWidth = brushSize;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = drawColor;
+            ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.closePath();
+        }
+
+        function clearScratchpad() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById('scratchpadHint').classList.remove('hidden');
+        }
+
+        function clearScratchpadSilently() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function setScratchpadColor(color) {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (color === 'eraser') {
+                drawColor = isDark ? '#090d16' : '#ffffff';
+                document.getElementById('eraseColorBtn').classList.add('bg-indigo-200');
+            } else {
+                drawColor = color;
+                document.getElementById('eraseColorBtn').classList.remove('bg-indigo-200');
+            }
+        }
+
+        // Initial setup - default to light mode on boot
+        try {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        } catch (e) {
+            document.documentElement.classList.remove('dark');
+        }
+
+        window.onload = function() {
+            updateThemeToggleButton();
+            loadStateFromLocalStorage();
+            initializeQuestions();
+            filterQuestions(); 
+            initScratchpad();
+        }
+    </script>
+</body>
+</html>
